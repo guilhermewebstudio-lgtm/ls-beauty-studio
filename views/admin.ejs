@@ -113,12 +113,18 @@
                   </span>
                 </summary>
                 <div class="admin-chat">
-                  <div class="chat-bubble chat-bubble-client">
-                    <p><%= msg.mensagem %></p>
+                  <div class="chat-bubble-row row-client">
+                    <span class="chat-bubble-label"><%= msg.nome %> · <%= new Date(msg.criado_em).toLocaleDateString('pt-PT', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) %></span>
+                    <div class="chat-bubble chat-bubble-client">
+                      <p><%= msg.mensagem %></p>
+                    </div>
                   </div>
                   <% if (msg.resposta_admin) { %>
-                    <div class="chat-bubble chat-bubble-admin">
-                      <p><%= msg.resposta_admin %></p>
+                    <div class="chat-bubble-row row-admin">
+                      <span class="chat-bubble-label">LS Beauty Studio<% if (msg.respondido_em) { %> · <%= new Date(msg.respondido_em).toLocaleDateString('pt-PT', { day: '2-digit', month: 'short', hour: '2-digit', minute: '2-digit' }) %><% } %></span>
+                      <div class="chat-bubble chat-bubble-admin">
+                        <p><%= msg.resposta_admin %></p>
+                      </div>
                     </div>
                   <% } %>
                   <form method="POST" action="/admin/mensagens/<%= msg.id %>" class="admin-chat-reply">

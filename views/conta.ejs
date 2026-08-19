@@ -64,9 +64,14 @@
                   </span>
                 </div>
                 <div class="admin-chat" style="padding:0;">
-                  <div class="chat-bubble chat-bubble-client"><p><%= msg.mensagem %></p></div>
+                  <div class="chat-bubble-row row-client">
+                    <div class="chat-bubble chat-bubble-client"><p><%= msg.mensagem %></p></div>
+                  </div>
                   <% if (msg.resposta_admin) { %>
-                    <div class="chat-bubble chat-bubble-admin"><p><%= msg.resposta_admin %></p></div>
+                    <div class="chat-bubble-row row-admin">
+                      <span class="chat-bubble-label">LS Beauty Studio</span>
+                      <div class="chat-bubble chat-bubble-admin"><p><%= msg.resposta_admin %></p></div>
+                    </div>
                   <% } %>
                 </div>
               </div>
