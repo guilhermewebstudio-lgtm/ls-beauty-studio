@@ -56,6 +56,16 @@ async function init() {
     );
   `);
 
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS usuarios (
+      id SERIAL PRIMARY KEY,
+      nome TEXT NOT NULL,
+      email TEXT NOT NULL UNIQUE,
+      password_hash TEXT NOT NULL,
+      criado_em TIMESTAMP DEFAULT NOW()
+    );
+  `);
+
   const { rows } = await pool.query('SELECT COUNT(*)::int AS n FROM servicos');
   if (rows[0].n === 0) {
     const seed = [
@@ -112,6 +122,31 @@ async function criarMensagemContacto({ nome, email, mensagem }) {
   );
 }
 
+async function getUsuarioPorEmail(email) {
+  const { rows } = await pool.query('SELECT * FROM usuarios WHERE email = $1', [email.toLowerCase()]);
+  return rows[0] || null;
+}
+
+async function criarUsuario({ nome, email, password_hash }) {
+  const { rows } = await pool.query(
+    'INSERT INTO usuarios (nome, email, password_hash) VALUES ($1,$2,$3) RETURNING id, nome, email',
+    [nome, email.toLowerCase(), password_hash]
+  );
+  return rows[0];
+}
+
+async function getMarcacoesPorEmail(email) {
+  const { rows } = await pool.query(
+    `SELECT m.*, s.nome AS servico_nome, s.preco, s.duracao_min
+     FROM marcacoes m
+     JOIN servicos s ON s.id = m.servico_id
+     WHERE m.email = $1
+     ORDER BY m.data DESC, m.hora DESC`,
+    [email.toLowerCase()]
+  );
+  return rows.map((r) => ({ ...r, preco: Number(r.preco) }));
+}
+
 module.exports = {
   pool,
   init,
@@ -119,5 +154,8 @@ module.exports = {
   getServicoPorId,
   existeConflito,
   criarMarcacao,
-  criarMensagemContacto
+  criarMensagemContacto,
+  getUsuarioPorEmail,
+  criarUsuario,
+  getMarcacoesPorEmail
 };

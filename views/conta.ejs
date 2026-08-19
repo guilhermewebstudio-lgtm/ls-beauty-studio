@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+<%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/nav') %>
+
+  <main>
+    <section class="page-header">
+      <div class="wrap scroll-reveal">
+        <p class="eyebrow"><%= t('account_eyebrow') %></p>
+        <h1><%= t('account_greeting') %> <%= user.nome.split(' ')[0] %></h1>
+        <p class="page-header-sub"><%= user.email %></p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="section-head scroll-reveal">
+          <p class="eyebrow"><%= t('account_bookings_eyebrow') %></p>
+          <h2><%= t('account_bookings_title') %></h2>
+        </div>
+
+        <% if (marcacoes.length === 0) { %>
+          <p class="account-empty scroll-reveal"><%= t('account_no_bookings') %> <a href="/marcar"><%= t('pricing_btn') %></a></p>
+        <% } else { %>
+          <div class="account-bookings scroll-reveal">
+            <% marcacoes.forEach(function(m) { %>
+              <div class="account-booking-card">
+                <div>
+                  <h3><%= m.servico_nome %></h3>
+                  <p class="account-booking-meta"><%= m.data %> · <%= m.hora %></p>
+                </div>
+                <span class="account-booking-price"><%= m.preco %>€</span>
+              </div>
+            <% }); %>
+          </div>
+        <% } %>
+
+        <div class="center-cta">
+          <a href="/logout" class="btn btn-ghost"><%= t('nav_logout') %></a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <%- include('partials/footer') %>
+  <%- include('partials/chatbot') %>
+  <script src="/js/reveal.js"></script>
+  <script src="/js/animate.js"></script>
+  <script src="/js/chatbot.js"></script>
+</body>
+</html>

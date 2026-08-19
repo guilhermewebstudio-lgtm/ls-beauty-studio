@@ -123,7 +123,34 @@ const dict = {
     chat_error: 'Ups, houve um problema de ligação. Tenta novamente.',
 
     notfound_title: 'Esta página não existe',
-    notfound_btn: 'Voltar ao início'
+    notfound_btn: 'Voltar ao início',
+
+    nav_login: 'Entrar',
+    nav_register: 'Registar',
+    nav_logout: 'Sair',
+    form_password: 'Palavra-passe',
+    form_password_confirm: 'Confirmar palavra-passe',
+    auth_register_eyebrow: 'Criar conta',
+    auth_register_title: 'Junta-te ao LS Beauty Studio',
+    auth_register_sub: 'Cria a tua conta para acompanhares as tuas marcações.',
+    auth_register_btn: 'Criar conta',
+    auth_login_eyebrow: 'Entrar',
+    auth_login_title: 'Bem-vinda de volta',
+    auth_login_sub: 'Entra para veres as tuas marcações.',
+    auth_login_btn: 'Entrar',
+    auth_have_account: 'Já tens conta?',
+    auth_no_account: 'Ainda não tens conta?',
+    auth_error_fields: 'Preenche todos os campos.',
+    auth_error_email: 'Introduz um email válido.',
+    auth_error_password_short: 'A palavra-passe deve ter pelo menos 6 caracteres.',
+    auth_error_password_match: 'As palavras-passe não coincidem.',
+    auth_error_exists: 'Já existe uma conta com este email.',
+    auth_error_credentials: 'Email ou palavra-passe incorretos.',
+    account_eyebrow: 'A minha conta',
+    account_greeting: 'Olá,',
+    account_bookings_eyebrow: 'Histórico',
+    account_bookings_title: 'As tuas marcações',
+    account_no_bookings: 'Ainda não tens marcações.'
   },
   en: {
     nav_home: 'Home',
@@ -244,7 +271,34 @@ const dict = {
     chat_error: 'Oops, there was a connection issue. Please try again.',
 
     notfound_title: 'This page doesn\'t exist',
-    notfound_btn: 'Back to home'
+    notfound_btn: 'Back to home',
+
+    nav_login: 'Log in',
+    nav_register: 'Sign up',
+    nav_logout: 'Log out',
+    form_password: 'Password',
+    form_password_confirm: 'Confirm password',
+    auth_register_eyebrow: 'Create account',
+    auth_register_title: 'Join LS Beauty Studio',
+    auth_register_sub: 'Create your account to keep track of your bookings.',
+    auth_register_btn: 'Create account',
+    auth_login_eyebrow: 'Log in',
+    auth_login_title: 'Welcome back',
+    auth_login_sub: 'Log in to see your bookings.',
+    auth_login_btn: 'Log in',
+    auth_have_account: 'Already have an account?',
+    auth_no_account: 'Don\'t have an account yet?',
+    auth_error_fields: 'Please fill in all fields.',
+    auth_error_email: 'Enter a valid email.',
+    auth_error_password_short: 'Password must be at least 6 characters.',
+    auth_error_password_match: 'Passwords don\'t match.',
+    auth_error_exists: 'An account with this email already exists.',
+    auth_error_credentials: 'Incorrect email or password.',
+    account_eyebrow: 'My account',
+    account_greeting: 'Hi,',
+    account_bookings_eyebrow: 'History',
+    account_bookings_title: 'Your bookings',
+    account_no_bookings: 'You don\'t have any bookings yet.'
   }
 };
 

@@ -226,6 +226,34 @@ body.revealed .reveal-item { opacity: 1; transform: translateY(0); }
 .lang-btn { color: rgba(29,24,21,0.45); padding: 4px 2px; transition: color .2s ease; }
 .lang-btn:hover { color: var(--wine); }
 .lang-btn.active { color: var(--wine); }
+.nav-account {
+  background: var(--blush-soft);
+  color: var(--wine) !important;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-weight: 700;
+}
+.nav-account:after { display: none !important; }
+
+.auth-switch { text-align: center; margin-top: 22px; font-size: 0.9rem; color: #6a5f58; }
+.auth-switch a { color: var(--wine); font-weight: 700; }
+
+.account-empty { text-align: center; color: #6a5f58; font-size: 0.95rem; }
+.account-empty a { color: var(--wine); font-weight: 700; }
+.account-bookings { display: flex; flex-direction: column; gap: 14px; max-width: 640px; margin: 0 auto 40px; }
+.account-booking-card {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--white);
+  border: 1px solid rgba(122,59,73,0.1);
+  border-radius: 8px;
+  padding: 20px 24px;
+  box-shadow: 0 10px 26px rgba(29,24,21,0.05);
+}
+.account-booking-card h3 { font-size: 1.05rem; margin-bottom: 4px; }
+.account-booking-meta { margin: 0; font-size: 0.85rem; color: #8a7d75; }
+.account-booking-price { font-family: var(--font-display); color: var(--wine); font-size: 1.2rem; }
 
 .nav-toggle { display: none; background: none; border: none; width: 30px; height: 22px; flex-direction: column; justify-content: space-between; padding: 0; }
 .nav-toggle span { display: block; height: 1.5px; background: var(--ink); }
@@ -788,24 +816,31 @@ body.revealed .reveal-item { opacity: 1; transform: translateY(0); }
    Chat widget
    ============================================ */
 .chat-widget { position: fixed; bottom: 24px; right: 24px; z-index: 200; }
-.whatsapp-float {
+.social-float {
   position: fixed;
-  bottom: 96px;
   right: 24px;
   z-index: 200;
   width: 52px;
   height: 52px;
   border-radius: 50%;
-  background: #25D366;
   color: var(--white);
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 10px 26px rgba(37,211,102,0.4);
   transition: transform .25s var(--ease);
 }
-.whatsapp-float:hover { transform: scale(1.08); }
-.whatsapp-float svg { width: 24px; height: 24px; }
+.social-float:hover { transform: scale(1.08); }
+.social-float svg { width: 24px; height: 24px; }
+.whatsapp-float {
+  bottom: 96px;
+  background: #25D366;
+  box-shadow: 0 10px 26px rgba(37,211,102,0.4);
+}
+.instagram-float {
+  bottom: 168px;
+  background: radial-gradient(circle at 30% 110%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+  box-shadow: 0 10px 26px rgba(214,36,159,0.35);
+}
 .chat-toggle {
   width: 58px; height: 58px;
   border-radius: 50%;

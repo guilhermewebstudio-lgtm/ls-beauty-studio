@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+<%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/nav') %>
+
+  <main>
+    <section class="page-header">
+      <div class="wrap scroll-reveal">
+        <p class="eyebrow"><%= t('auth_register_eyebrow') %></p>
+        <h1><%= t('auth_register_title') %></h1>
+        <p class="page-header-sub"><%= t('auth_register_sub') %></p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap form-wrap">
+        <% if (erro) { %>
+          <div class="alert alert-error"><p><%= erro %></p></div>
+        <% } %>
+
+        <form class="booking-form" method="POST" action="/registo">
+          <label>
+            <%= t('form_name') %>
+            <input type="text" name="nome" value="<%= valores.nome || '' %>" required>
+          </label>
+          <label>
+            <%= t('form_email') %>
+            <input type="email" name="email" value="<%= valores.email || '' %>" required>
+          </label>
+          <label>
+            <%= t('form_password') %>
+            <input type="password" name="password" minlength="6" required>
+          </label>
+          <label>
+            <%= t('form_password_confirm') %>
+            <input type="password" name="password2" minlength="6" required>
+          </label>
+          <button type="submit" class="btn btn-primary btn-block"><%= t('auth_register_btn') %></button>
+        </form>
+
+        <p class="auth-switch"><%= t('auth_have_account') %> <a href="/login"><%= t('nav_login') %></a></p>
+      </div>
+    </section>
+  </main>
+
+  <%- include('partials/footer') %>
+  <%- include('partials/chatbot') %>
+  <script src="/js/reveal.js"></script>
+  <script src="/js/animate.js"></script>
+  <script src="/js/chatbot.js"></script>
+</body>
+</html>

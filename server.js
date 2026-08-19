@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const session = require('express-session');
 const db = require('./models/db');
 const { t } = require('./models/i18n');
 const config = require('./models/config');
@@ -25,6 +26,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(session({
+  secret: process.env.SESSION_SECRET || 'ls-beauty-studio-dev-secret',
+  resave: false,
+  saveUninitialized: false,
+  cookie: { maxAge: 1000 * 60 * 60 * 24 * 30 } // 30 dias
+}));
+
 // Idioma: lê o cookie 'lang' (definido pelo botão PT/EN) e disponibiliza
 // `t()` e `lang` em todos os templates EJS automaticamente via res.locals.
 function parseCookies(header) {
@@ -46,6 +54,7 @@ app.use((req, res, next) => {
   res.locals.lang = lang;
   res.locals.t = (key) => t(lang, key);
   res.locals.social = config.social;
+  res.locals.user = req.session.user || null;
   next();
 });
 
@@ -57,6 +66,7 @@ app.get('/lang/:code', (req, res) => {
 });
 
 app.use('/', require('./routes/main'));
+app.use('/', require('./routes/auth'));
 app.use('/api', require('./routes/chatbot'));
 
 app.get('/api/health', (req, res) => {

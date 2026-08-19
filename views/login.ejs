@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+<%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/nav') %>
+
+  <main>
+    <section class="page-header">
+      <div class="wrap scroll-reveal">
+        <p class="eyebrow"><%= t('auth_login_eyebrow') %></p>
+        <h1><%= t('auth_login_title') %></h1>
+        <p class="page-header-sub"><%= t('auth_login_sub') %></p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap form-wrap">
+        <% if (erro) { %>
+          <div class="alert alert-error"><p><%= erro %></p></div>
+        <% } %>
+
+        <form class="booking-form" method="POST" action="/login">
+          <label>
+            <%= t('form_email') %>
+            <input type="email" name="email" value="<%= valores.email || '' %>" required>
+          </label>
+          <label>
+            <%= t('form_password') %>
+            <input type="password" name="password" required>
+          </label>
+          <button type="submit" class="btn btn-primary btn-block"><%= t('auth_login_btn') %></button>
+        </form>
+
+        <p class="auth-switch"><%= t('auth_no_account') %> <a href="/registo"><%= t('nav_register') %></a></p>
+      </div>
+    </section>
+  </main>
+
+  <%- include('partials/footer') %>
+  <%- include('partials/chatbot') %>
+  <script src="/js/reveal.js"></script>
+  <script src="/js/animate.js"></script>
+  <script src="/js/chatbot.js"></script>
+</body>
+</html>
