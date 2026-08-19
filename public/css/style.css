@@ -455,6 +455,29 @@ body.revealed .reveal-item { opacity: 1; transform: translateY(0); }
 .center-cta { text-align: center; margin-top: 48px; }
 
 /* ============================================
+   Porquê nós
+   ============================================ */
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+}
+.why-card { text-align: center; padding: 0 8px; }
+.why-icon {
+  width: 58px; height: 58px;
+  margin: 0 auto 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, var(--blush), var(--blush-soft));
+  color: var(--wine);
+}
+.why-icon svg { width: 26px; height: 26px; }
+.why-card h3 { font-size: 1.05rem; margin-bottom: 8px; }
+.why-card p { font-size: 0.86rem; color: #6a5f58; margin: 0; }
+
+/* ============================================
    Galeria
    ============================================ */
 .gallery-section { padding-bottom: 40px; }
@@ -564,7 +587,24 @@ body.revealed .reveal-item { opacity: 1; transform: translateY(0); }
 /* ============================================
    Page header (páginas internas)
    ============================================ */
-.page-header { padding: 150px 0 60px; text-align: center; }
+.page-header {
+  padding: 150px 0 60px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, var(--blush-soft), var(--cream) 90%);
+}
+.page-header::before {
+  content: '';
+  position: absolute;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(161,29,34,0.1), transparent 65%);
+  top: -220px; left: 50%;
+  transform: translateX(-50%);
+  pointer-events: none;
+}
+.page-header .wrap { position: relative; }
 .page-header h1 { font-size: clamp(2.2rem, 4vw, 3rem); }
 .page-header-sub { color: #6a5f58; max-width: 480px; margin: 14px auto 0; }
 
