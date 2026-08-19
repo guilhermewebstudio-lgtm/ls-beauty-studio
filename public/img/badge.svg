@@ -1,0 +1,18 @@
+<svg viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <path id="badgeTopArc" d="M 16 60 A 44 44 0 0 1 104 60" />
+    <path id="badgeBottomArc" d="M 20 78 A 40 40 0 0 0 100 78" />
+  </defs>
+  <circle cx="60" cy="60" r="58" fill="#FFFDFB" stroke="#241A1B" stroke-width="1.4"/>
+  <circle cx="60" cy="60" r="48" fill="#B4677C"/>
+  <circle cx="60" cy="60" r="48" fill="none" stroke="#FFFDFB" stroke-width="1.2"/>
+  <text font-family="Manrope, sans-serif" font-size="7.4" font-weight="700" letter-spacing="2.5" fill="#241A1B">
+    <textPath href="#badgeTopArc" startOffset="50%" text-anchor="middle">EST. 2021</textPath>
+  </text>
+  <text font-family="Manrope, sans-serif" font-size="7.4" font-weight="700" letter-spacing="2" fill="#241A1B">
+    <textPath href="#badgeBottomArc" startOffset="50%" text-anchor="middle">BEAUTY STUDIO</textPath>
+  </text>
+  <text x="60" y="70" font-family="Fraunces, serif" font-size="34" font-weight="600" fill="#FFFDFB" text-anchor="middle">LS</text>
+  <path d="M32 58 l4 -6 l4 6" stroke="#FFFDFB" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M80 58 l4 -6 l4 6" stroke="#FFFDFB" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
