@@ -56,4 +56,23 @@ router.get('/admin', requireAdmin, async (req, res, next) => {
   } catch (err) { next(err); }
 });
 
+router.get('/admin/sugestoes', requireAdmin, async (req, res, next) => {
+  try {
+    const sugestoes = await db.getTodasSugestoes();
+    res.render('admin_sugestoes', { sugestoes });
+  } catch (err) { next(err); }
+});
+
+router.post('/admin/sugestoes/:id', requireAdmin, async (req, res, next) => {
+  try {
+    const { estado, resposta_admin } = req.body;
+    const estadosValidos = ['pendente', 'aceite', 'recusada'];
+    if (!estadosValidos.includes(estado)) {
+      return res.status(400).send('Estado inválido.');
+    }
+    await db.responderSugestao(req.params.id, { estado, resposta_admin });
+    res.redirect('/admin/sugestoes');
+  } catch (err) { next(err); }
+});
+
 module.exports = router;

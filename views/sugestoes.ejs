@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+<%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/nav') %>
+
+  <main>
+    <section class="page-header">
+      <div class="wrap scroll-reveal">
+        <p class="eyebrow"><%= t('page_suggestions_eyebrow') %></p>
+        <h1><%= t('page_suggestions_title') %></h1>
+        <p class="page-header-sub"><%= t('page_suggestions_sub') %></p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap form-wrap">
+        <% if (!user) { %>
+          <div class="alert alert-error">
+            <p><%= t('suggestion_login_required') %> <a href="/login"><%= t('nav_login') %></a></p>
+          </div>
+        <% } else { %>
+          <% if (sucesso) { %>
+            <div class="alert alert-success"><p><%= t('suggestion_success') %></p></div>
+          <% } %>
+          <% if (erro) { %>
+            <div class="alert alert-error"><p><%= erro %></p></div>
+          <% } %>
+
+          <form class="booking-form" method="POST" action="/sugestoes">
+            <label>
+              <%= t('form_suggestion_title') %>
+              <input type="text" name="titulo" required>
+            </label>
+            <label>
+              <%= t('form_suggestion_message') %>
+              <textarea name="mensagem" rows="4" required></textarea>
+            </label>
+            <button type="submit" class="btn btn-primary btn-block"><%= t('suggestion_submit_btn') %></button>
+          </form>
+        <% } %>
+      </div>
+    </section>
+
+    <% if (user && sugestoes) { %>
+      <section class="section">
+        <div class="wrap">
+          <div class="section-head scroll-reveal">
+            <p class="eyebrow"><%= t('page_suggestions_eyebrow') %></p>
+            <h2><%= t('my_suggestions_title') %></h2>
+          </div>
+
+          <% if (sugestoes.length === 0) { %>
+            <p class="account-empty"><%= t('my_suggestions_empty') %></p>
+          <% } else { %>
+            <div class="suggestions-list scroll-reveal">
+              <% sugestoes.forEach(function(s) { %>
+                <div class="suggestion-card">
+                  <div class="suggestion-head">
+                    <h3><%= s.titulo %></h3>
+                    <span class="suggestion-badge status-<%= s.estado %>"><%= t('suggestion_status_' + s.estado) %></span>
+                  </div>
+                  <p class="suggestion-msg"><%= s.mensagem %></p>
+                  <% if (s.resposta_admin) { %>
+                    <div class="suggestion-reply">
+                      <strong><%= t('suggestion_admin_reply') %></strong>
+                      <p><%= s.resposta_admin %></p>
+                    </div>
+                  <% } %>
+                </div>
+              <% }); %>
+            </div>
+          <% } %>
+        </div>
+      </section>
+    <% } %>
+  </main>
+
+  <%- include('partials/footer') %>
+  <%- include('partials/chatbot') %>
+  <script src="/js/reveal.js"></script>
+  <script src="/js/animate.js"></script>
+  <script src="/js/chatbot.js"></script>
+</body>
+</html>

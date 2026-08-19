@@ -75,6 +75,8 @@ const dict = {
     footer_explore: 'Explorar',
     footer_follow: 'Segue-nos',
     footer_rights: 'Todos os direitos reservados.',
+    footer_location: 'Local',
+    footer_view_map: 'Ver no mapa',
 
     page_services_eyebrow: 'Serviços',
     page_services_title: 'O menu completo',
@@ -150,7 +152,31 @@ const dict = {
     account_greeting: 'Olá,',
     account_bookings_eyebrow: 'Histórico',
     account_bookings_title: 'As tuas marcações',
-    account_no_bookings: 'Ainda não tens marcações.'
+    account_no_bookings: 'Ainda não tens marcações.',
+
+    nav_suggestions: 'Sugestões',
+    page_suggestions_eyebrow: 'Sugestões',
+    page_suggestions_title: 'A tua opinião conta',
+    page_suggestions_sub: 'Diz-nos o que gostavas de ver melhorado ou o que sentiste falta.',
+    suggestion_login_required: 'Precisas de ter sessão iniciada para enviares uma sugestão.',
+    form_suggestion_title: 'Título',
+    form_suggestion_message: 'A tua sugestão',
+    suggestion_submit_btn: 'Enviar sugestão',
+    suggestion_success: 'Sugestão enviada! Vais poder acompanhar a resposta aqui mesmo.',
+    suggestion_error_fields: 'Preenche o título e a mensagem.',
+    my_suggestions_title: 'As minhas sugestões',
+    my_suggestions_empty: 'Ainda não enviaste nenhuma sugestão.',
+    suggestion_status_pendente: 'Pendente',
+    suggestion_status_aceite: 'Aceite',
+    suggestion_status_recusada: 'Recusada',
+    suggestion_admin_reply: 'Resposta da equipa:',
+    admin_suggestions_title: 'Gerir sugestões',
+    admin_suggestions_eyebrow: 'Sugestões',
+    admin_respond_btn: 'Guardar resposta',
+    admin_status_label: 'Estado',
+    admin_reply_label: 'Resposta (opcional)',
+    admin_no_suggestions: 'Ainda não há sugestões.',
+    admin_back_dashboard: 'Voltar ao painel'
   },
   en: {
     nav_home: 'Home',
@@ -223,6 +249,8 @@ const dict = {
     footer_explore: 'Explore',
     footer_follow: 'Follow us',
     footer_rights: 'All rights reserved.',
+    footer_location: 'Location',
+    footer_view_map: 'View on map',
 
     page_services_eyebrow: 'Services',
     page_services_title: 'The full menu',
@@ -298,7 +326,31 @@ const dict = {
     account_greeting: 'Hi,',
     account_bookings_eyebrow: 'History',
     account_bookings_title: 'Your bookings',
-    account_no_bookings: 'You don\'t have any bookings yet.'
+    account_no_bookings: 'You don\'t have any bookings yet.',
+
+    nav_suggestions: 'Suggestions',
+    page_suggestions_eyebrow: 'Suggestions',
+    page_suggestions_title: 'Your opinion matters',
+    page_suggestions_sub: 'Tell us what you\'d like to see improved or what you felt was missing.',
+    suggestion_login_required: 'You need to be logged in to send a suggestion.',
+    form_suggestion_title: 'Title',
+    form_suggestion_message: 'Your suggestion',
+    suggestion_submit_btn: 'Send suggestion',
+    suggestion_success: 'Suggestion sent! You\'ll be able to track the reply right here.',
+    suggestion_error_fields: 'Please fill in the title and message.',
+    my_suggestions_title: 'My suggestions',
+    my_suggestions_empty: 'You haven\'t sent any suggestions yet.',
+    suggestion_status_pendente: 'Pending',
+    suggestion_status_aceite: 'Accepted',
+    suggestion_status_recusada: 'Declined',
+    suggestion_admin_reply: 'Team reply:',
+    admin_suggestions_title: 'Manage suggestions',
+    admin_suggestions_eyebrow: 'Suggestions',
+    admin_respond_btn: 'Save reply',
+    admin_status_label: 'Status',
+    admin_reply_label: 'Reply (optional)',
+    admin_no_suggestions: 'No suggestions yet.',
+    admin_back_dashboard: 'Back to dashboard'
   }
 };
 

@@ -68,6 +68,7 @@ app.get('/lang/:code', (req, res) => {
 app.use('/', require('./routes/main'));
 app.use('/', require('./routes/auth'));
 app.use('/', require('./routes/admin'));
+app.use('/', require('./routes/sugestoes'));
 app.use('/api', require('./routes/chatbot'));
 
 app.get('/api/health', (req, res) => {

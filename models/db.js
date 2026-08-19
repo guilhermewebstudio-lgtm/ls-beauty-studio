@@ -67,6 +67,19 @@ async function init() {
   `);
   await pool.query(`ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS is_admin BOOLEAN DEFAULT FALSE;`);
 
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS sugestoes (
+      id SERIAL PRIMARY KEY,
+      usuario_id INTEGER NOT NULL REFERENCES usuarios(id),
+      titulo TEXT NOT NULL,
+      mensagem TEXT NOT NULL,
+      estado TEXT DEFAULT 'pendente',
+      resposta_admin TEXT,
+      criado_em TIMESTAMP DEFAULT NOW(),
+      respondido_em TIMESTAMP
+    );
+  `);
+
   const { rows } = await pool.query('SELECT COUNT(*)::int AS n FROM servicos');
   if (rows[0].n === 0) {
     const seed = [
@@ -175,16 +188,53 @@ async function getTodasMensagens() {
 }
 
 async function getResumoAdmin() {
-  const [marcacoes, mensagens, usuarios] = await Promise.all([
+  const [marcacoes, mensagens, usuarios, sugestoesPendentes] = await Promise.all([
     pool.query('SELECT COUNT(*)::int AS n FROM marcacoes'),
     pool.query('SELECT COUNT(*)::int AS n FROM mensagens_contacto'),
-    pool.query('SELECT COUNT(*)::int AS n FROM usuarios')
+    pool.query('SELECT COUNT(*)::int AS n FROM usuarios'),
+    pool.query("SELECT COUNT(*)::int AS n FROM sugestoes WHERE estado = 'pendente'")
   ]);
   return {
     totalMarcacoes: marcacoes.rows[0].n,
     totalMensagens: mensagens.rows[0].n,
-    totalUsuarios: usuarios.rows[0].n
+    totalUsuarios: usuarios.rows[0].n,
+    sugestoesPendentes: sugestoesPendentes.rows[0].n
   };
+}
+
+async function criarSugestao({ usuario_id, titulo, mensagem }) {
+  const { rows } = await pool.query(
+    'INSERT INTO sugestoes (usuario_id, titulo, mensagem) VALUES ($1,$2,$3) RETURNING *',
+    [usuario_id, titulo, mensagem]
+  );
+  return rows[0];
+}
+
+async function getSugestoesPorUsuario(usuario_id) {
+  const { rows } = await pool.query(
+    'SELECT * FROM sugestoes WHERE usuario_id = $1 ORDER BY criado_em DESC',
+    [usuario_id]
+  );
+  return rows;
+}
+
+async function getTodasSugestoes() {
+  const { rows } = await pool.query(
+    `SELECT sg.*, u.nome AS usuario_nome, u.email AS usuario_email
+     FROM sugestoes sg
+     JOIN usuarios u ON u.id = sg.usuario_id
+     ORDER BY (sg.estado = 'pendente') DESC, sg.criado_em DESC`
+  );
+  return rows;
+}
+
+async function responderSugestao(id, { estado, resposta_admin }) {
+  const { rows } = await pool.query(
+    `UPDATE sugestoes SET estado = $1, resposta_admin = $2, respondido_em = NOW()
+     WHERE id = $3 RETURNING *`,
+    [estado, resposta_admin || null, id]
+  );
+  return rows[0] || null;
 }
 
 module.exports = {
@@ -201,5 +251,9 @@ module.exports = {
   promoverAdmin,
   getTodasMarcacoes,
   getTodasMensagens,
-  getResumoAdmin
+  getResumoAdmin,
+  criarSugestao,
+  getSugestoesPorUsuario,
+  getTodasSugestoes,
+  responderSugestao
 };

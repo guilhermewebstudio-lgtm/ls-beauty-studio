@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+<%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/nav') %>
+
+  <main>
+    <section class="page-header">
+      <div class="wrap scroll-reveal">
+        <p class="eyebrow"><%= t('admin_suggestions_eyebrow') %></p>
+        <h1><%= t('admin_suggestions_title') %></h1>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="center-cta" style="margin-bottom:40px;">
+          <a href="/admin" class="btn btn-ghost">&larr; <%= t('admin_back_dashboard') %></a>
+        </div>
+
+        <% if (sugestoes.length === 0) { %>
+          <p class="account-empty"><%= t('admin_no_suggestions') %></p>
+        <% } else { %>
+          <div class="suggestions-list scroll-reveal">
+            <% sugestoes.forEach(function(s) { %>
+              <div class="suggestion-card admin-suggestion-card">
+                <div class="suggestion-head">
+                  <div>
+                    <h3><%= s.titulo %></h3>
+                    <p class="admin-muted"><%= s.usuario_nome %> · <%= s.usuario_email %></p>
+                  </div>
+                  <span class="suggestion-badge status-<%= s.estado %>"><%= t('suggestion_status_' + s.estado) %></span>
+                </div>
+                <p class="suggestion-msg"><%= s.mensagem %></p>
+
+                <form class="admin-respond-form" method="POST" action="/admin/sugestoes/<%= s.id %>">
+                  <label>
+                    <%= t('admin_status_label') %>
+                    <select name="estado">
+                      <option value="pendente" <%= s.estado === 'pendente' ? 'selected' : '' %>><%= t('suggestion_status_pendente') %></option>
+                      <option value="aceite" <%= s.estado === 'aceite' ? 'selected' : '' %>><%= t('suggestion_status_aceite') %></option>
+                      <option value="recusada" <%= s.estado === 'recusada' ? 'selected' : '' %>><%= t('suggestion_status_recusada') %></option>
+                    </select>
+                  </label>
+                  <label>
+                    <%= t('admin_reply_label') %>
+                    <textarea name="resposta_admin" rows="2"><%= s.resposta_admin || '' %></textarea>
+                  </label>
+                  <button type="submit" class="btn btn-primary"><%= t('admin_respond_btn') %></button>
+                </form>
+              </div>
+            <% }); %>
+          </div>
+        <% } %>
+      </div>
+    </section>
+  </main>
+
+  <%- include('partials/footer') %>
+  <script src="/js/reveal.js"></script>
+  <script src="/js/animate.js"></script>
+</body>
+</html>
