@@ -78,6 +78,67 @@
       </div>
     </section>
 
+    <section class="section gallery-section">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Galeria</p>
+          <h2>Trabalhos que falam por si</h2>
+        </div>
+      </div>
+      <div class="gallery-grid">
+        <figure class="gallery-item span-2">
+          <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=1200&q=80" alt="Manicure em tons escuros com padrão de tartaruga">
+        </figure>
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1610992015762-45dca7fa3a85?auto=format&fit=crop&w=800&q=80" alt="Manicure em rosa claro sobre superfície branca">
+        </figure>
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1736434518489-0eb84070017f?auto=format&fit=crop&w=800&q=80" alt="Manicure segurando uma flor">
+        </figure>
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?auto=format&fit=crop&w=800&q=80" alt="Unhas com glitter prateado e malha branca">
+        </figure>
+        <figure class="gallery-item span-2">
+          <img src="https://images.unsplash.com/photo-1619607146034-5a05296c8f9a?auto=format&fit=crop&w=1200&q=80" alt="Prateleiras douradas com vernizes coloridos">
+        </figure>
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?auto=format&fit=crop&w=800&q=80" alt="Foco seletivo em manicure rosa">
+        </figure>
+        <figure class="gallery-item">
+          <img src="https://images.unsplash.com/photo-1571290274554-6a2eaa771e5f?auto=format&fit=crop&w=800&q=80" alt="Unhas cuidadas com manicure elegante">
+        </figure>
+      </div>
+    </section>
+
+    <section class="section pricing-section">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Preços</p>
+          <h2>Investe em ti, sem surpresas</h2>
+        </div>
+        <div class="pricing-columns">
+          <% const porCategoriaHome = {}; servicos.forEach(s => { (porCategoriaHome[s.categoria] = porCategoriaHome[s.categoria] || []).push(s); }); %>
+          <% Object.keys(porCategoriaHome).forEach(function(cat) { %>
+            <div class="pricing-col">
+              <h3><%= cat %></h3>
+              <ul class="pricing-list">
+                <% porCategoriaHome[cat].forEach(function(s) { %>
+                  <li>
+                    <span class="pricing-name"><%= s.nome %></span>
+                    <span class="pricing-dots"></span>
+                    <span class="pricing-value"><%= s.preco %>€</span>
+                  </li>
+                <% }); %>
+              </ul>
+            </div>
+          <% }); %>
+        </div>
+        <div class="center-cta">
+          <a href="/marcar" class="btn btn-primary">Marcar sessão</a>
+        </div>
+      </div>
+    </section>
+
     <section class="section cta-band">
       <div class="wrap cta-band-inner">
         <h2>Pronta para o teu momento de cuidado?</h2>

@@ -320,6 +320,85 @@ body.revealed .reveal-item { opacity: 1; transform: translateY(0); }
 .service-from { font-weight: 700; color: var(--wine); font-size: 0.85rem; }
 .center-cta { text-align: center; margin-top: 48px; }
 
+/* ============================================
+   Galeria
+   ============================================ */
+.gallery-section { padding-bottom: 40px; }
+.gallery-grid {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 0 28px;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-auto-rows: 220px;
+  gap: 14px;
+}
+.gallery-item {
+  margin: 0;
+  overflow: hidden;
+  border-radius: var(--radius);
+  position: relative;
+}
+.gallery-item.span-2 { grid-column: span 2; }
+.gallery-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .6s var(--ease), filter .4s ease;
+  filter: saturate(0.96);
+}
+.gallery-item:hover img { transform: scale(1.06); filter: saturate(1.05); }
+.gallery-item::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 60%, rgba(29,24,21,0.25));
+  opacity: 0;
+  transition: opacity .3s ease;
+}
+.gallery-item:hover::after { opacity: 1; }
+
+/* ============================================
+   Preços
+   ============================================ */
+.pricing-columns {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 40px;
+  margin-bottom: 50px;
+}
+.pricing-col h3 {
+  font-size: 1.05rem;
+  color: var(--wine);
+  margin-bottom: 18px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(110,47,50,0.2);
+}
+.pricing-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 14px; }
+.pricing-list li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 0.9rem;
+}
+.pricing-name { color: var(--ink); white-space: nowrap; }
+.pricing-dots {
+  flex: 1;
+  border-bottom: 1px dotted rgba(29,24,21,0.25);
+  transform: translateY(-4px);
+}
+.pricing-value { font-family: var(--font-display); color: var(--wine); font-weight: 500; white-space: nowrap; }
+
+/* ============================================
+   Mapa
+   ============================================ */
+.map-section { padding-bottom: 0; }
+.map-embed {
+  width: 100%;
+  height: 420px;
+  filter: grayscale(0.15) contrast(1.02);
+}
+
 .cta-band { background: var(--wine); color: var(--white); }
 .cta-band-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; }
 .cta-band h2 { color: var(--white); font-size: clamp(1.6rem, 3vw, 2.2rem); max-width: 480px; }
@@ -468,6 +547,9 @@ body.revealed .reveal-item { opacity: 1; transform: translateY(0); }
   .contact-grid { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: 1fr 1fr; }
   .chat-panel { width: calc(100vw - 40px); right: -8px; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 180px; }
+  .gallery-item.span-2 { grid-column: span 2; }
+  .pricing-columns { grid-template-columns: 1fr 1fr; gap: 32px; }
 }
 @media (max-width: 560px) {
   .service-cards { grid-template-columns: 1fr; }
@@ -475,6 +557,10 @@ body.revealed .reveal-item { opacity: 1; transform: translateY(0); }
   .footer-inner { grid-template-columns: 1fr; }
   .hero-actions { flex-direction: column; width: 100%; }
   .btn-block, .hero-actions .btn { width: 100%; text-align: center; }
+  .gallery-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 140px; gap: 8px; padding: 0 16px; }
+  .gallery-item.span-2 { grid-column: span 2; }
+  .pricing-columns { grid-template-columns: 1fr; gap: 28px; }
+  .map-embed { height: 300px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
