@@ -26,6 +26,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/', require('./routes/main'));
 app.use('/api', require('./routes/chatbot'));
 
+app.get('/api/health', (req, res) => {
+  res.status(200).json({ ok: true });
+});
+
 app.use((req, res) => {
   res.status(404).render('404');
 });
