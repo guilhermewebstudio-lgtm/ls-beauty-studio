@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="<%= lang %>">
 <head>
 <%- include('partials/head') %>
 </head>
@@ -9,9 +9,9 @@
   <main>
     <section class="page-header">
       <div class="wrap scroll-reveal">
-        <p class="eyebrow">Serviços</p>
-        <h1>O menu completo</h1>
-        <p class="page-header-sub">Preços e durações — escolhe o que precisas e marca em segundos.</p>
+        <p class="eyebrow"><%= t('page_services_eyebrow') %></p>
+        <h1><%= t('page_services_title') %></h1>
+        <p class="page-header-sub"><%= t('page_services_sub') %></p>
       </div>
     </section>
 

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="<%= lang %>">
 <head>
 <%- include('partials/head') %>
 </head>
@@ -9,8 +9,8 @@
   <main>
     <section class="page-header">
       <div class="wrap scroll-reveal">
-        <p class="eyebrow">Contactos</p>
-        <h1>Fala connosco</h1>
+        <p class="eyebrow"><%= t('page_contact_eyebrow') %></p>
+        <h1><%= t('page_contact_title') %></h1>
       </div>
     </section>
 
@@ -18,37 +18,37 @@
       <div class="wrap contact-grid">
         <div class="contact-info">
           <div>
-            <h3>Morada</h3>
-            <p>Rua de Benfica, Lisboa</p>
+            <h3><%= t('contact_address_title') %></h3>
+            <p><%= t('contact_address') %></p>
           </div>
           <div>
-            <h3>Horário</h3>
-            <p>Terça – Sábado, 10h00 – 19h30</p>
+            <h3><%= t('contact_hours_title') %></h3>
+            <p><%= t('footer_hours_days') %>, <%= t('footer_hours_time') %></p>
           </div>
           <div>
-            <h3>Redes sociais</h3>
+            <h3><%= t('contact_social_title') %></h3>
             <p><a href="#">Instagram</a> · <a href="#">Facebook</a></p>
           </div>
         </div>
 
         <div class="contact-form-wrap">
           <% if (sucesso) { %>
-            <div class="alert alert-success"><p>Mensagem enviada! Respondemos assim que possível.</p></div>
+            <div class="alert alert-success"><p><%= t('contact_success') %></p></div>
           <% } %>
           <form class="booking-form" method="POST" action="/contactos">
             <label>
-              Nome
+              <%= t('form_name') %>
               <input type="text" name="nome" required>
             </label>
             <label>
-              Email
+              <%= t('form_email') %>
               <input type="email" name="email" required>
             </label>
             <label>
-              Mensagem
+              <%= t('form_message') %>
               <textarea name="mensagem" rows="5" required></textarea>
             </label>
-            <button type="submit" class="btn btn-primary btn-block">Enviar mensagem</button>
+            <button type="submit" class="btn btn-primary btn-block"><%= t('form_send') %></button>
           </form>
         </div>
       </div>
@@ -56,9 +56,9 @@
 
     <section class="section map-section">
       <div class="wrap">
-        <div class="section-head">
-          <p class="eyebrow">Onde estamos</p>
-          <h2>Vem visitar-nos</h2>
+        <div class="section-head scroll-reveal">
+          <p class="eyebrow"><%= t('map_eyebrow') %></p>
+          <h2><%= t('map_title') %></h2>
         </div>
       </div>
       <div class="map-embed">

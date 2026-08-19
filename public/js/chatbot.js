@@ -21,6 +21,11 @@ document.addEventListener('DOMContentLoaded', () => {
     messages.scrollTop = messages.scrollHeight;
   }
 
+  function getLang() {
+    const match = document.cookie.match(/(?:^|; )lang=([^;]*)/);
+    return match ? decodeURIComponent(match[1]) : 'pt';
+  }
+
   async function sendMessage(text) {
     if (!text.trim()) return;
     addMessage(text, 'user');
@@ -30,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const res = await fetch('/api/chatbot', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ mensagem: text })
+        body: JSON.stringify({ mensagem: text, lang: getLang() })
       });
       const data = await res.json();
       addMessage(data.resposta || 'Desculpa, não consegui responder agora.', 'bot');

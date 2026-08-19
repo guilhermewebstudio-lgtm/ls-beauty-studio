@@ -2,25 +2,25 @@
   <div class="wrap footer-inner">
     <div class="footer-brand">
       <span class="brand-mark small">LS</span>
-      <p>LS Beauty Studio<br><span class="muted">Rua de Benfica, Lisboa</span></p>
+      <p>LS Beauty Studio<br><span class="muted"><%= t('contact_address') %></span></p>
     </div>
     <div class="footer-col">
-      <h4>Horário</h4>
-      <p>Terça – Sábado<br>10h00 – 19h30</p>
+      <h4><%= t('footer_hours') %></h4>
+      <p><%= t('footer_hours_days') %><br><%= t('footer_hours_time') %></p>
     </div>
     <div class="footer-col">
-      <h4>Explorar</h4>
-      <p><a href="/servicos">Serviços</a></p>
-      <p><a href="/marcar">Marcar sessão</a></p>
-      <p><a href="/contactos">Contactos</a></p>
+      <h4><%= t('footer_explore') %></h4>
+      <p><a href="/servicos"><%= t('nav_services') %></a></p>
+      <p><a href="/marcar"><%= t('pricing_btn') %></a></p>
+      <p><a href="/contactos"><%= t('nav_contact') %></a></p>
     </div>
     <div class="footer-col">
-      <h4>Segue-nos</h4>
+      <h4><%= t('footer_follow') %></h4>
       <p><a href="#" target="_blank" rel="noopener">Instagram</a></p>
       <p><a href="#" target="_blank" rel="noopener">Facebook</a></p>
     </div>
   </div>
   <div class="wrap footer-bottom">
-    <p>&copy; <%= new Date().getFullYear() %> LS Beauty Studio. Todos os direitos reservados.</p>
+    <p>&copy; <%= new Date().getFullYear() %> LS Beauty Studio. <%= t('footer_rights') %></p>
   </div>
 </footer>

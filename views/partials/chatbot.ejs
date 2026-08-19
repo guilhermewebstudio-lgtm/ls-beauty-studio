@@ -7,20 +7,20 @@
   <div class="chat-panel" id="chatPanel">
     <div class="chat-panel-header">
       <div>
-        <p class="chat-title">Assistente LS</p>
-        <p class="chat-subtitle">Normalmente responde em segundos</p>
+        <p class="chat-title"><%= t('chat_title') %></p>
+        <p class="chat-subtitle"><%= t('chat_subtitle') %></p>
       </div>
     </div>
     <div class="chat-messages" id="chatMessages">
-      <div class="msg msg-bot">Olá! 👋 Sou o assistente do LS Beauty Studio. Pergunta-me sobre horários, preços, serviços ou marcações.</div>
+      <div class="msg msg-bot"><%= t('chat_intro') %></div>
     </div>
     <div class="chat-quick" id="chatQuick">
-      <button data-msg="Quais são os horários?">Horários</button>
-      <button data-msg="Quanto custam os serviços?">Preços</button>
-      <button data-msg="Como faço uma marcação?">Marcar</button>
+      <button data-msg="<%= t('chat_quick_hours_msg') %>"><%= t('chat_quick_hours') %></button>
+      <button data-msg="<%= t('chat_quick_prices_msg') %>"><%= t('chat_quick_prices') %></button>
+      <button data-msg="<%= t('chat_quick_book_msg') %>"><%= t('chat_quick_book') %></button>
     </div>
     <form class="chat-input-row" id="chatForm">
-      <input type="text" id="chatInput" placeholder="Escreve a tua pergunta…" autocomplete="off">
+      <input type="text" id="chatInput" placeholder="<%= t('chat_placeholder') %>" autocomplete="off">
       <button type="submit" aria-label="Enviar">
         <svg viewBox="0 0 24 24" fill="none"><path d="M4 12h16M14 6l6 6-6 6" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
       </button>

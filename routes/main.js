@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const db = require('../models/db');
+const { localizeServicos } = require('../models/i18n');
 
 // Página inicial
 router.get('/', async (req, res, next) => {
   try {
-    const servicos = await db.getServicos();
+    const servicos = localizeServicos(await db.getServicos(), res.locals.lang);
     res.render('index', { servicos });
   } catch (err) { next(err); }
 });
@@ -13,7 +14,7 @@ router.get('/', async (req, res, next) => {
 // Página de serviços
 router.get('/servicos', async (req, res, next) => {
   try {
-    const servicos = await db.getServicos();
+    const servicos = localizeServicos(await db.getServicos(), res.locals.lang);
     res.render('servicos', { servicos });
   } catch (err) { next(err); }
 });
@@ -21,7 +22,7 @@ router.get('/servicos', async (req, res, next) => {
 // Página de marcação
 router.get('/marcar', async (req, res, next) => {
   try {
-    const servicos = await db.getServicos();
+    const servicos = localizeServicos(await db.getServicos(), res.locals.lang);
     res.render('marcar', { servicos, sucesso: false, erro: null });
   } catch (err) { next(err); }
 });
@@ -29,15 +30,15 @@ router.get('/marcar', async (req, res, next) => {
 router.post('/marcar', async (req, res, next) => {
   try {
     const { nome_cliente, email, telefone, servico_id, data, hora, notas } = req.body;
-    const servicos = await db.getServicos();
+    const servicos = localizeServicos(await db.getServicos(), res.locals.lang);
 
     if (!nome_cliente || !email || !telefone || !servico_id || !data || !hora) {
-      return res.render('marcar', { servicos, sucesso: false, erro: 'Preenche todos os campos obrigatórios.' });
+      return res.render('marcar', { servicos, sucesso: false, erro: res.locals.t('booking_error_fields') });
     }
 
     const conflito = await db.existeConflito(data, hora);
     if (conflito) {
-      return res.render('marcar', { servicos, sucesso: false, erro: 'Esse horário já está reservado. Escolhe outro, por favor.' });
+      return res.render('marcar', { servicos, sucesso: false, erro: res.locals.t('booking_error_conflict') });
     }
 
     await db.criarMarcacao({ nome_cliente, email, telefone, servico_id, data, hora, notas });

@@ -221,6 +221,18 @@ body.revealed .reveal-item { opacity: 1; transform: translateY(0); }
   transition: background .25s ease, transform .25s ease, box-shadow .25s ease;
 }
 .nav-cta:hover { background: var(--wine-deep); transform: translateY(-1px); box-shadow: 0 8px 18px rgba(110,47,50,0.3); }
+.lang-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+.lang-sep { color: rgba(29,24,21,0.3); }
+.lang-btn { color: rgba(29,24,21,0.45); padding: 4px 2px; transition: color .2s ease; }
+.lang-btn:hover { color: var(--wine); }
+.lang-btn.active { color: var(--wine); }
 
 .nav-toggle { display: none; background: none; border: none; width: 30px; height: 22px; flex-direction: column; justify-content: space-between; padding: 0; }
 .nav-toggle span { display: block; height: 1.5px; background: var(--ink); }

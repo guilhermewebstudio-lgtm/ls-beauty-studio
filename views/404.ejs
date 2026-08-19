@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="<%= lang %>">
 <head>
 <%- include('partials/head') %>
 </head>
@@ -9,8 +9,8 @@
     <section class="section" style="min-height:50vh;display:flex;align-items:center;">
       <div class="wrap" style="text-align:center;">
         <p class="eyebrow">404</p>
-        <h1>Esta página não existe</h1>
-        <a href="/" class="btn btn-primary">Voltar ao início</a>
+        <h1><%= t('notfound_title') %></h1>
+        <a href="/" class="btn btn-primary"><%= t('notfound_btn') %></a>
       </div>
     </section>
   </main>

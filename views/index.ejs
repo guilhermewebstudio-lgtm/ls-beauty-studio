@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="<%= lang %>">
 <head>
 <%- include('partials/head') %>
 </head>
@@ -20,17 +20,17 @@
     <section class="hero hero-photo">
       <div class="hero-overlay"></div>
       <div class="wrap hero-inner">
-        <p class="eyebrow eyebrow-light reveal-item" data-d="1">Benfica · Lisboa</p>
-        <h1 class="hero-title-light reveal-item" data-d="2">Beleza que <em>se sente</em>,<br>antes de se ver.</h1>
-        <p class="hero-sub hero-sub-light reveal-item" data-d="3">Unhas, cabelo, sobrancelhas, pestanas e estética facial — num espaço pensado para desacelerares.</p>
+        <p class="eyebrow eyebrow-light reveal-item" data-d="1"><%= t('hero_eyebrow') %></p>
+        <h1 class="hero-title-light reveal-item" data-d="2"><%= t('hero_title_pre') %><em><%= t('hero_title_em') %></em><%- t('hero_title_post').replace('\n', '<br>') %></h1>
+        <p class="hero-sub hero-sub-light reveal-item" data-d="3"><%= t('hero_sub') %></p>
         <div class="hero-actions reveal-item" data-d="4">
-          <a href="/marcar" class="btn btn-gold">Marcar sessão</a>
-          <a href="/servicos" class="btn btn-ghost-light">Ver serviços</a>
+          <a href="/marcar" class="btn btn-gold"><%= t('hero_btn_book') %></a>
+          <a href="/servicos" class="btn btn-ghost-light"><%= t('hero_btn_services') %></a>
         </div>
       </div>
       <div class="hero-scroll hero-scroll-light reveal-item" data-d="5">
         <span></span>
-        <p>Descobre mais</p>
+        <p><%= t('hero_scroll') %></p>
       </div>
     </section>
 
@@ -38,19 +38,19 @@
       <div class="wrap stats-band-inner">
         <div class="stat-block">
           <span class="stat-block-num" data-count="9">0</span>
-          <span class="stat-block-label">Serviços especializados</span>
+          <span class="stat-block-label"><%= t('stats_services') %></span>
         </div>
         <div class="stat-block">
           <span class="stat-block-num" data-count="5">0</span>
-          <span class="stat-block-label">Categorias de tratamento</span>
+          <span class="stat-block-label"><%= t('stats_categories') %></span>
         </div>
         <div class="stat-block">
           <span class="stat-block-num-text">Ter–Sáb</span>
-          <span class="stat-block-label">Horário de funcionamento</span>
+          <span class="stat-block-label"><%= t('stats_hours_label') %></span>
         </div>
         <div class="stat-block">
           <span class="stat-block-num-text">100%</span>
-          <span class="stat-block-label">Produtos profissionais</span>
+          <span class="stat-block-label"><%= t('stats_products') %></span>
         </div>
       </div>
     </section>
@@ -58,13 +58,13 @@
     <section class="section intro-section">
       <div class="wrap intro-grid">
         <div class="intro-text scroll-reveal">
-          <p class="eyebrow">O estúdio</p>
-          <h2>Um cuidado atento, em cada detalhe.</h2>
-          <p>No LS Beauty Studio, cada marcação é um momento só teu. Trabalhamos com produtos de qualidade e técnicas atuais, num ambiente calmo em pleno coração de Benfica.</p>
+          <p class="eyebrow"><%= t('intro_eyebrow') %></p>
+          <h2><%= t('intro_title') %></h2>
+          <p><%= t('intro_body') %></p>
         </div>
         <div class="intro-quote scroll-reveal" data-delay="1">
-          <p>"Não é só sobre unhas ou cabelo — é sobre saíres daqui a sentir-te mais tu."</p>
-          <span>— Equipa LS Beauty Studio</span>
+          <p><%= t('intro_quote') %></p>
+          <span><%= t('intro_quote_author') %></span>
         </div>
       </div>
     </section>
@@ -72,8 +72,8 @@
     <section class="section services-preview">
       <div class="wrap">
         <div class="section-head scroll-reveal">
-          <p class="eyebrow">Serviços</p>
-          <h2>O que fazemos por ti</h2>
+          <p class="eyebrow"><%= t('services_eyebrow') %></p>
+          <h2><%= t('services_title') %></h2>
         </div>
         <div class="service-cards">
           <% const categorias = [...new Set(servicos.map(s => s.categoria))].slice(0, 4); %>
@@ -83,12 +83,12 @@
               <span class="service-index"><%= String(i + 1).padStart(2, '0') %></span>
               <h3><%= cat %></h3>
               <p><%= s.descricao %></p>
-              <p class="service-from">desde <%= Math.min(...servicos.filter(x => x.categoria === cat).map(x => x.preco)) %>€</p>
+              <p class="service-from"><%= t('services_from') %> <%= Math.min(...servicos.filter(x => x.categoria === cat).map(x => x.preco)) %>€</p>
             </div>
           <% }); %>
         </div>
         <div class="center-cta">
-          <a href="/servicos" class="btn btn-ghost">Ver todos os serviços</a>
+          <a href="/servicos" class="btn btn-ghost"><%= t('services_see_all') %></a>
         </div>
       </div>
     </section>
@@ -96,37 +96,37 @@
     <section class="section why-section">
       <div class="wrap">
         <div class="section-head scroll-reveal">
-          <p class="eyebrow">Porquê nós</p>
-          <h2>O que nos torna diferentes</h2>
+          <p class="eyebrow"><%= t('why_eyebrow') %></p>
+          <h2><%= t('why_title') %></h2>
         </div>
         <div class="why-grid">
           <div class="why-card scroll-reveal">
             <div class="why-icon">
               <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7.5-4.6-10-9.1C.5 8.2 2.4 4.5 6.1 4.1c2-.2 3.7.8 5.9 3 2.2-2.2 3.9-3.2 5.9-3 3.7.4 5.6 4.1 4.1 7.8C19.5 16.4 12 21 12 21Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
             </div>
-            <h3>Cuidado genuíno</h3>
-            <p>Cada marcação é tratada com atenção total — sem pressas, sem rotina.</p>
+            <h3><%= t('why_1_title') %></h3>
+            <p><%= t('why_1_body') %></p>
           </div>
           <div class="why-card scroll-reveal" data-delay="1">
             <div class="why-icon">
               <svg viewBox="0 0 24 24" fill="none"><path d="M12 2 14.6 8.6 21.8 9.2 16.3 13.9 18 21 12 17.3 6 21 7.7 13.9 2.2 9.2 9.4 8.6 12 2Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/></svg>
             </div>
-            <h3>Produtos de qualidade</h3>
-            <p>Trabalhamos só com marcas profissionais, escolhidas a pensar na saúde da pele e das unhas.</p>
+            <h3><%= t('why_2_title') %></h3>
+            <p><%= t('why_2_body') %></p>
           </div>
           <div class="why-card scroll-reveal" data-delay="2">
             <div class="why-icon">
               <svg viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 7v5l3.2 2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
             </div>
-            <h3>Sem esperas</h3>
-            <p>Marcações online simples, para o teu horário nunca ser um problema.</p>
+            <h3><%= t('why_3_title') %></h3>
+            <p><%= t('why_3_body') %></p>
           </div>
           <div class="why-card scroll-reveal" data-delay="3">
             <div class="why-icon">
               <svg viewBox="0 0 24 24" fill="none"><path d="M4 12c2-4 5-6 8-6s6 2 8 6c-2 4-5 6-8 6s-6-2-8-6Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><circle cx="12" cy="12" r="2.5" stroke="currentColor" stroke-width="1.5"/></svg>
             </div>
-            <h3>Ambiente calmo</h3>
-            <p>Um espaço pensado para desacelerares, no coração de Benfica.</p>
+            <h3><%= t('why_4_title') %></h3>
+            <p><%= t('why_4_body') %></p>
           </div>
         </div>
       </div>
@@ -135,8 +135,8 @@
     <section class="section gallery-section">
       <div class="wrap">
         <div class="section-head scroll-reveal">
-          <p class="eyebrow">Galeria</p>
-          <h2>Trabalhos que falam por si</h2>
+          <p class="eyebrow"><%= t('gallery_eyebrow') %></p>
+          <h2><%= t('gallery_title') %></h2>
         </div>
       </div>
       <div class="gallery-grid">
@@ -168,8 +168,8 @@
       <div class="pricing-glow"></div>
       <div class="wrap">
         <div class="section-head scroll-reveal">
-          <p class="eyebrow">Preços</p>
-          <h2>Investe em ti, sem surpresas</h2>
+          <p class="eyebrow"><%= t('pricing_eyebrow') %></p>
+          <h2><%= t('pricing_title') %></h2>
         </div>
         <div class="pricing-columns">
           <% const porCategoriaHome = {}; servicos.forEach(s => { (porCategoriaHome[s.categoria] = porCategoriaHome[s.categoria] || []).push(s); }); %>
@@ -189,15 +189,15 @@
           <% }); %>
         </div>
         <div class="center-cta scroll-reveal">
-          <a href="/marcar" class="btn btn-primary">Marcar sessão</a>
+          <a href="/marcar" class="btn btn-primary"><%= t('pricing_btn') %></a>
         </div>
       </div>
     </section>
 
     <section class="section cta-band">
       <div class="wrap cta-band-inner scroll-reveal">
-        <h2>Pronta para o teu momento de cuidado?</h2>
-        <a href="/marcar" class="btn btn-primary-inverse">Marcar agora</a>
+        <h2><%= t('cta_title') %></h2>
+        <a href="/marcar" class="btn btn-primary-inverse"><%= t('cta_btn') %></a>
       </div>
     </section>
   </main>

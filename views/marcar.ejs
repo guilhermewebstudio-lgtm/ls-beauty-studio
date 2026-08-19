@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt">
+<html lang="<%= lang %>">
 <head>
 <%- include('partials/head') %>
 </head>
@@ -9,9 +9,9 @@
   <main>
     <section class="page-header">
       <div class="wrap scroll-reveal">
-        <p class="eyebrow">Marcação</p>
-        <h1>Reserva a tua sessão</h1>
-        <p class="page-header-sub">Escolhe o serviço, o dia e a hora que preferires.</p>
+        <p class="eyebrow"><%= t('page_book_eyebrow') %></p>
+        <h1><%= t('page_book_title') %></h1>
+        <p class="page-header-sub"><%= t('page_book_sub') %></p>
       </div>
     </section>
 
@@ -19,8 +19,8 @@
       <div class="wrap form-wrap">
         <% if (sucesso) { %>
           <div class="alert alert-success">
-            <h3>Marcação recebida! 🎉</h3>
-            <p>Vamos confirmar por email ou telefone brevemente. Obrigada pela preferência.</p>
+            <h3><%= t('booking_success_title') %></h3>
+            <p><%= t('booking_success_body') %></p>
           </div>
         <% } %>
         <% if (erro) { %>
@@ -30,22 +30,22 @@
         <form class="booking-form" method="POST" action="/marcar">
           <div class="form-row">
             <label>
-              Nome completo
+              <%= t('form_name') %>
               <input type="text" name="nome_cliente" required>
             </label>
             <label>
-              Telefone
+              <%= t('form_phone') %>
               <input type="tel" name="telefone" required>
             </label>
           </div>
           <label>
-            Email
+            <%= t('form_email') %>
             <input type="email" name="email" required>
           </label>
           <label>
-            Serviço
+            <%= t('form_service') %>
             <select name="servico_id" required>
-              <option value="" disabled selected>Escolhe um serviço</option>
+              <option value="" disabled selected><%= t('form_service_placeholder') %></option>
               <% servicos.forEach(function(s) { %>
                 <option value="<%= s.id %>"><%= s.nome %> — <%= s.preco %>€ (<%= s.duracao_min %> min)</option>
               <% }); %>
@@ -53,19 +53,19 @@
           </label>
           <div class="form-row">
             <label>
-              Data
+              <%= t('form_date') %>
               <input type="date" name="data" required>
             </label>
             <label>
-              Hora
+              <%= t('form_time') %>
               <input type="time" name="hora" required>
             </label>
           </div>
           <label>
-            Notas (opcional)
-            <textarea name="notas" rows="3" placeholder="Alguma preferência ou pedido especial?"></textarea>
+            <%= t('form_notes') %>
+            <textarea name="notas" rows="3" placeholder="<%= t('form_notes_placeholder') %>"></textarea>
           </label>
-          <button type="submit" class="btn btn-primary btn-block">Confirmar marcação</button>
+          <button type="submit" class="btn btn-primary btn-block"><%= t('form_confirm') %></button>
         </form>
       </div>
     </section>
