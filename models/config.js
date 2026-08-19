@@ -4,7 +4,8 @@
 
 module.exports = {
   social: {
-    instagram: 'https://www.instagram.com/ls_beautystudio_/'
+    instagram: 'https://www.instagram.com/ls_beautystudio_/',
+    whatsapp: 'https://wa.link/2d7un5'
     // facebook: adicionar aqui quando existir
   }
 };
