@@ -17,26 +17,41 @@
   <%- include('partials/nav') %>
 
   <main>
-    <section class="hero">
-      <div class="hero-bg">
-        <div class="hero-blob blob-1"></div>
-        <div class="hero-blob blob-2"></div>
-        <div class="hero-blob blob-3"></div>
-        <div class="hero-blob blob-4"></div>
-      </div>
-      <div class="hero-glow"></div>
+    <section class="hero hero-photo">
+      <div class="hero-overlay"></div>
       <div class="wrap hero-inner">
-        <p class="eyebrow reveal-item" data-d="1">Benfica · Lisboa</p>
-        <h1 class="reveal-item" data-d="2">Beleza que <em>se sente</em>,<br>antes de se ver.</h1>
-        <p class="hero-sub reveal-item" data-d="3">Unhas, cabelo, sobrancelhas, pestanas e estética facial — num espaço pensado para desacelerares.</p>
+        <p class="eyebrow eyebrow-light reveal-item" data-d="1">Benfica · Lisboa</p>
+        <h1 class="hero-title-light reveal-item" data-d="2">Beleza que <em>se sente</em>,<br>antes de se ver.</h1>
+        <p class="hero-sub hero-sub-light reveal-item" data-d="3">Unhas, cabelo, sobrancelhas, pestanas e estética facial — num espaço pensado para desacelerares.</p>
         <div class="hero-actions reveal-item" data-d="4">
-          <a href="/marcar" class="btn btn-primary">Marcar sessão</a>
-          <a href="/servicos" class="btn btn-ghost">Ver serviços</a>
+          <a href="/marcar" class="btn btn-gold">Marcar sessão</a>
+          <a href="/servicos" class="btn btn-ghost-light">Ver serviços</a>
         </div>
       </div>
-      <div class="hero-scroll reveal-item" data-d="5">
+      <div class="hero-scroll hero-scroll-light reveal-item" data-d="5">
         <span></span>
         <p>Descobre mais</p>
+      </div>
+    </section>
+
+    <section class="stats-band">
+      <div class="wrap stats-band-inner">
+        <div class="stat-block">
+          <span class="stat-block-num" data-count="9">0</span>
+          <span class="stat-block-label">Serviços especializados</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-block-num" data-count="5">0</span>
+          <span class="stat-block-label">Categorias de tratamento</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-block-num-text">Ter–Sáb</span>
+          <span class="stat-block-label">Horário de funcionamento</span>
+        </div>
+        <div class="stat-block">
+          <span class="stat-block-num-text">100%</span>
+          <span class="stat-block-label">Produtos profissionais</span>
+        </div>
       </div>
     </section>
 
@@ -47,15 +62,9 @@
           <h2>Um cuidado atento, em cada detalhe.</h2>
           <p>No LS Beauty Studio, cada marcação é um momento só teu. Trabalhamos com produtos de qualidade e técnicas atuais, num ambiente calmo em pleno coração de Benfica.</p>
         </div>
-        <div class="intro-stats scroll-reveal" data-delay="1">
-          <div class="stat">
-            <span class="stat-num" data-count="9">0</span>
-            <span class="stat-label">Serviços especializados</span>
-          </div>
-          <div class="stat">
-            <span class="stat-num">Ter–Sáb</span>
-            <span class="stat-label">10h00 – 19h30</span>
-          </div>
+        <div class="intro-quote scroll-reveal" data-delay="1">
+          <p>"Não é só sobre unhas ou cabelo — é sobre saíres daqui a sentir-te mais tu."</p>
+          <span>— Equipa LS Beauty Studio</span>
         </div>
       </div>
     </section>
