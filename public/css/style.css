@@ -5,8 +5,8 @@
    ============================================ */
 :root {
   --ink: #1D1815;
-  --wine: #6E2F32;
-  --wine-deep: #4A1E22;
+  --wine: #A11D22;
+  --wine-deep: #7A1418;
   --blush: #E8CFC6;
   --blush-soft: #F1E1D8;
   --cream: #F7F0E7;
@@ -100,7 +100,7 @@ body.pre-reveal { overflow: hidden; height: 100vh; }
   position: absolute;
   top: 0; bottom: 0;
   width: 50%;
-  background: linear-gradient(160deg, var(--wine-deep), var(--wine) 60%, #7d3a3d);
+  background: linear-gradient(160deg, var(--wine-deep), var(--wine) 60%, #c23a3f);
   transition: transform 1.15s var(--ease);
 }
 .curtain-panel.left { left: 0; }
@@ -300,7 +300,7 @@ body.revealed .reveal-item { opacity: 1; transform: translateY(0); }
 }
 .blob-3 {
   width: 460px; height: 460px;
-  background: radial-gradient(circle, #c25f57 0%, #c25f57 30%, transparent 72%);
+  background: radial-gradient(circle, #d6564f 0%, #d6564f 30%, transparent 72%);
   bottom: -180px; left: 10%;
   animation: driftC 30s ease-in-out infinite;
 }
@@ -533,7 +533,7 @@ body.revealed .reveal-item { opacity: 1; transform: translateY(0); }
 }
 
 .cta-band {
-  background: linear-gradient(135deg, var(--wine-deep), var(--wine) 55%, #7d3a3d);
+  background: linear-gradient(135deg, var(--wine-deep), var(--wine) 55%, #c23a3f);
   color: var(--white);
   position: relative;
   overflow: hidden;
