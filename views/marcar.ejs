@@ -31,7 +31,7 @@
           <div class="form-row">
             <label>
               <%= t('form_name') %>
-              <input type="text" name="nome_cliente" required>
+              <input type="text" name="nome_cliente" value="<%= userPre ? userPre.nome : '' %>" required>
             </label>
             <label>
               <%= t('form_phone') %>
@@ -40,7 +40,7 @@
           </div>
           <label>
             <%= t('form_email') %>
-            <input type="email" name="email" required>
+            <input type="email" name="email" value="<%= userPre ? userPre.email : '' %>" required>
           </label>
           <label>
             <%= t('form_service') %>

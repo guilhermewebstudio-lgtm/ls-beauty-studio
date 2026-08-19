@@ -32,7 +32,10 @@
                   <h3><%= m.servico_nome %></h3>
                   <p class="account-booking-meta"><%= m.data %> · <%= m.hora %></p>
                 </div>
-                <span class="account-booking-price"><%= m.preco %>€</span>
+                <div class="account-booking-right">
+                  <span class="suggestion-badge status-<%= m.estado %>"><%= t('suggestion_status_' + m.estado) %></span>
+                  <span class="account-booking-price"><%= m.preco %>€</span>
+                </div>
               </div>
             <% }); %>
           </div>

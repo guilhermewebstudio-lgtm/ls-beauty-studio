@@ -12,7 +12,7 @@
       <a href="/sugestoes"><%= t('nav_suggestions') %></a>
       <% if (user) { %>
         <% if (user.isAdmin) { %>
-          <a href="/admin" class="nav-admin">Admin</a>
+          <a href="/admin" class="nav-admin">Gestão</a>
         <% } %>
         <a href="/conta" class="nav-account"><%= user.nome.split(' ')[0] %></a>
       <% } else { %>

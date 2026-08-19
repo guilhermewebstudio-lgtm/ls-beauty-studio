@@ -19,30 +19,38 @@ router.get('/servicos', async (req, res, next) => {
   } catch (err) { next(err); }
 });
 
-// Página de marcação
+// Página de marcação — exige sessão iniciada
 router.get('/marcar', async (req, res, next) => {
   try {
+    if (!req.session.user) {
+      req.session.postLoginRedirect = '/marcar';
+      return res.redirect('/login');
+    }
     const servicos = localizeServicos(await db.getServicos(), res.locals.lang);
-    res.render('marcar', { servicos, sucesso: false, erro: null });
+    res.render('marcar', { servicos, sucesso: false, erro: null, userPre: req.session.user });
   } catch (err) { next(err); }
 });
 
 router.post('/marcar', async (req, res, next) => {
   try {
+    if (!req.session.user) {
+      req.session.postLoginRedirect = '/marcar';
+      return res.redirect('/login');
+    }
     const { nome_cliente, email, telefone, servico_id, data, hora, notas } = req.body;
     const servicos = localizeServicos(await db.getServicos(), res.locals.lang);
 
     if (!nome_cliente || !email || !telefone || !servico_id || !data || !hora) {
-      return res.render('marcar', { servicos, sucesso: false, erro: res.locals.t('booking_error_fields') });
+      return res.render('marcar', { servicos, sucesso: false, erro: res.locals.t('booking_error_fields'), userPre: req.session.user });
     }
 
     const conflito = await db.existeConflito(data, hora);
     if (conflito) {
-      return res.render('marcar', { servicos, sucesso: false, erro: res.locals.t('booking_error_conflict') });
+      return res.render('marcar', { servicos, sucesso: false, erro: res.locals.t('booking_error_conflict'), userPre: req.session.user });
     }
 
     await db.criarMarcacao({ nome_cliente, email, telefone, servico_id, data, hora, notas });
-    res.render('marcar', { servicos, sucesso: true, erro: null });
+    res.render('marcar', { servicos, sucesso: true, erro: null, userPre: req.session.user });
   } catch (err) { next(err); }
 });
 

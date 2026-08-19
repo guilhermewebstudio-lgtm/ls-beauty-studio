@@ -56,6 +56,25 @@ router.get('/admin', requireAdmin, async (req, res, next) => {
   } catch (err) { next(err); }
 });
 
+router.post('/admin/marcacoes/:id', requireAdmin, async (req, res, next) => {
+  try {
+    const { estado } = req.body;
+    const estadosValidos = ['pendente', 'aceite', 'recusada'];
+    if (!estadosValidos.includes(estado)) {
+      return res.status(400).send('Estado inválido.');
+    }
+    await db.atualizarEstadoMarcacao(req.params.id, estado);
+    res.redirect('/admin');
+  } catch (err) { next(err); }
+});
+
+router.post('/admin/marcacoes/:id/apagar', requireAdmin, async (req, res, next) => {
+  try {
+    await db.apagarMarcacao(req.params.id);
+    res.redirect('/admin');
+  } catch (err) { next(err); }
+});
+
 router.get('/admin/sugestoes', requireAdmin, async (req, res, next) => {
   try {
     const sugestoes = await db.getTodasSugestoes();

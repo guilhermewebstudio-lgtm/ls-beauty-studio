@@ -246,6 +246,31 @@
       </div>
     </section>
 
+    <section class="section map-section">
+      <div class="wrap">
+        <div class="section-head scroll-reveal">
+          <p class="eyebrow"><%= t('map_eyebrow') %></p>
+          <h2><%= t('map_title') %></h2>
+          <p class="map-address"><%= t('contact_address') %></p>
+        </div>
+      </div>
+      <div class="map-embed scroll-reveal">
+        <iframe
+          src="https://www.google.com/maps?q=Rua+Cláudio+Nunes+8,+Benfica,+Lisboa&output=embed"
+          width="100%"
+          height="100%"
+          style="border:0;"
+          allowfullscreen=""
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          title="Localização do LS Beauty Studio em Benfica, Lisboa">
+        </iframe>
+      </div>
+      <div class="center-cta" style="margin-top:28px;">
+        <a href="https://www.google.com/maps?q=Rua+Cláudio+Nunes+8,+Benfica,+Lisboa" target="_blank" rel="noopener" class="btn btn-ghost"><%= t('footer_view_map') %></a>
+      </div>
+    </section>
+
     <section class="section cta-band">
       <div class="wrap cta-band-inner scroll-reveal">
         <h2><%= t('cta_title') %></h2>

@@ -280,6 +280,21 @@ body.revealed .reveal-item { opacity: 1; transform: translateY(0); }
   font-weight: 700;
   text-transform: capitalize;
 }
+.admin-booking-actions { display: flex; gap: 6px; }
+.admin-booking-actions form { margin: 0; }
+.admin-action-btn {
+  width: 30px;
+  height: 30px;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: transform .2s ease, opacity .2s ease;
+}
+.admin-action-btn:hover { transform: scale(1.08); }
+.admin-action-accept { background: #DCEFE0; color: #2E7D4F; }
+.admin-action-reject { background: #F5DCDC; color: #A13E3E; }
+.admin-action-delete { background: rgba(29,24,21,0.08); color: #4b423d; }
 .admin-messages { display: flex; flex-direction: column; gap: 14px; }
 .admin-message-card {
   background: var(--white);
@@ -361,6 +376,7 @@ body.revealed .reveal-item { opacity: 1; transform: translateY(0); }
 .account-booking-card h3 { font-size: 1.05rem; margin-bottom: 4px; }
 .account-booking-meta { margin: 0; font-size: 0.85rem; color: #8a7d75; }
 .account-booking-price { font-family: var(--font-display); color: var(--wine); font-size: 1.2rem; }
+.account-booking-right { display: flex; align-items: center; gap: 14px; }
 
 .nav-toggle { display: none; background: none; border: none; width: 30px; height: 22px; flex-direction: column; justify-content: space-between; padding: 0; }
 .nav-toggle span { display: block; height: 1.5px; background: var(--ink); }
@@ -813,6 +829,7 @@ body.revealed .reveal-item { opacity: 1; transform: translateY(0); }
   height: 420px;
   filter: grayscale(0.15) contrast(1.02);
 }
+.map-address { color: #6a5f58; font-size: 0.95rem; }
 
 .cta-band {
   background: linear-gradient(135deg, var(--wine-deep), var(--wine) 55%, #C98A96);

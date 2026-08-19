@@ -58,6 +58,7 @@
                   <th>Hora</th>
                   <th>Preço</th>
                   <th>Estado</th>
+                  <th>Ações</th>
                 </tr>
               </thead>
               <tbody>
@@ -69,7 +70,22 @@
                     <td><%= m.data %></td>
                     <td><%= m.hora %></td>
                     <td><%= m.preco %>€</td>
-                    <td><span class="admin-badge"><%= m.estado %></span></td>
+                    <td><span class="suggestion-badge status-<%= m.estado %>"><%= m.estado %></span></td>
+                    <td>
+                      <div class="admin-booking-actions">
+                        <form method="POST" action="/admin/marcacoes/<%= m.id %>">
+                          <input type="hidden" name="estado" value="aceite">
+                          <button type="submit" class="admin-action-btn admin-action-accept" title="Aceitar">✓</button>
+                        </form>
+                        <form method="POST" action="/admin/marcacoes/<%= m.id %>">
+                          <input type="hidden" name="estado" value="recusada">
+                          <button type="submit" class="admin-action-btn admin-action-reject" title="Recusar">✕</button>
+                        </form>
+                        <form method="POST" action="/admin/marcacoes/<%= m.id %>/apagar" onsubmit="return confirm('Apagar esta marcação?');">
+                          <button type="submit" class="admin-action-btn admin-action-delete" title="Apagar">🗑</button>
+                        </form>
+                      </div>
+                    </td>
                   </tr>
                 <% }); %>
               </tbody>

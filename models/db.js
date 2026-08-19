@@ -121,6 +121,18 @@ async function existeConflito(data, hora) {
   return rows.length > 0;
 }
 
+async function atualizarEstadoMarcacao(id, estado) {
+  const { rows } = await pool.query(
+    'UPDATE marcacoes SET estado = $1 WHERE id = $2 RETURNING *',
+    [estado, id]
+  );
+  return rows[0] || null;
+}
+
+async function apagarMarcacao(id) {
+  await pool.query('DELETE FROM marcacoes WHERE id = $1', [id]);
+}
+
 async function criarMarcacao({ nome_cliente, email, telefone, servico_id, data, hora, notas }) {
   await pool.query(
     `INSERT INTO marcacoes (nome_cliente, email, telefone, servico_id, data, hora, notas)
@@ -255,5 +267,7 @@ module.exports = {
   criarSugestao,
   getSugestoesPorUsuario,
   getTodasSugestoes,
-  responderSugestao
+  responderSugestao,
+  atualizarEstadoMarcacao,
+  apagarMarcacao
 };
