@@ -4,6 +4,15 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const db = require('./models/db');
 
+// Evita que um erro assíncrono não apanhado derrube o servidor todo
+// (Render reinicia o serviço, o que causa os "not found" intermitentes)
+process.on('unhandledRejection', (err) => {
+  console.error('Unhandled rejection:', err);
+});
+process.on('uncaughtException', (err) => {
+  console.error('Uncaught exception:', err);
+});
+
 const app = express();
 const PORT = process.env.PORT || 3000;
 
