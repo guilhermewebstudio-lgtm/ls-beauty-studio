@@ -5,10 +5,6 @@
       <p>LS Beauty Studio<br><span class="muted"><%= t('contact_address') %></span></p>
     </div>
     <div class="footer-col">
-      <h4><%= t('footer_hours') %></h4>
-      <p><%= t('footer_hours_days') %><br><%= t('footer_hours_time') %></p>
-    </div>
-    <div class="footer-col">
       <h4><%= t('footer_explore') %></h4>
       <p><a href="/servicos"><%= t('nav_services') %></a></p>
       <p><a href="/marcar"><%= t('pricing_btn') %></a></p>
@@ -16,8 +12,7 @@
     </div>
     <div class="footer-col">
       <h4><%= t('footer_follow') %></h4>
-      <p><a href="#" target="_blank" rel="noopener">Instagram</a></p>
-      <p><a href="#" target="_blank" rel="noopener">Facebook</a></p>
+      <p><a href="<%= social.instagram %>" target="_blank" rel="noopener">Instagram</a></p>
     </div>
   </div>
   <div class="wrap footer-bottom">

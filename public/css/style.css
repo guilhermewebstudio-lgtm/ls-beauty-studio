@@ -423,6 +423,37 @@ body.revealed .reveal-item { opacity: 1; transform: translateY(0); }
 .stat-num { display: block; font-family: var(--font-display); font-size: 2.4rem; background: linear-gradient(120deg, var(--wine), var(--gold)); -webkit-background-clip: text; background-clip: text; color: transparent; }
 .stat-label { font-size: 0.85rem; color: #8a7d75; }
 
+/* ============================================
+   Horário
+   ============================================ */
+.hours-section { background: linear-gradient(180deg, var(--blush) -30%, var(--white)); }
+.hours-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+.hours-text p { color: #4b423d; max-width: 420px; margin: 0 0 26px; }
+.hours-card {
+  background: var(--white);
+  border-radius: 6px;
+  box-shadow: 0 24px 60px rgba(29,24,21,0.1);
+  padding: 12px 28px;
+}
+.hours-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 0;
+  border-bottom: 1px solid rgba(29,24,21,0.08);
+  font-size: 0.92rem;
+  color: #8a7d75;
+}
+.hours-row:last-child { border-bottom: none; }
+.hours-row.hours-open { color: var(--ink); font-weight: 600; }
+.hours-row.hours-open span:last-child { color: var(--wine); font-family: var(--font-display); }
+.hours-closed { font-style: italic; }
+
 .service-cards {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -780,6 +811,8 @@ body.revealed .reveal-item { opacity: 1; transform: translateY(0); }
   .nav-toggle { display: flex; }
   .intro-grid { grid-template-columns: 1fr; }
   .intro-stats { flex-direction: row; border-left: none; padding-left: 0; border-top: 1px solid rgba(29,24,21,0.12); padding-top: 24px; }
+  .hours-grid { grid-template-columns: 1fr; gap: 36px; }
+  .why-grid { grid-template-columns: 1fr 1fr; gap: 32px 20px; }
   .service-cards { grid-template-columns: 1fr 1fr; }
   .contact-grid { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: 1fr 1fr; }
@@ -791,6 +824,7 @@ body.revealed .reveal-item { opacity: 1; transform: translateY(0); }
 }
 @media (max-width: 560px) {
   .service-cards { grid-template-columns: 1fr; }
+  .why-grid { grid-template-columns: 1fr; }
   .form-row { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: 1fr; }
   .hero-actions { flex-direction: column; width: 100%; }

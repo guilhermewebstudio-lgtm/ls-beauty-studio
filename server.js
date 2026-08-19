@@ -4,6 +4,7 @@ const path = require('path');
 const bodyParser = require('body-parser');
 const db = require('./models/db');
 const { t } = require('./models/i18n');
+const config = require('./models/config');
 
 // Evita que um erro assíncrono não apanhado derrube o servidor todo
 // (Render reinicia o serviço, o que causa os "not found" intermitentes)
@@ -44,6 +45,7 @@ app.use((req, res, next) => {
   let lang = cookies.lang === 'en' ? 'en' : 'pt';
   res.locals.lang = lang;
   res.locals.t = (key) => t(lang, key);
+  res.locals.social = config.social;
   next();
 });
 

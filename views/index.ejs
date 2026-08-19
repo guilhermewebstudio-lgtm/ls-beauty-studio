@@ -69,6 +69,47 @@
       </div>
     </section>
 
+    <section class="section hours-section">
+      <div class="wrap hours-grid">
+        <div class="hours-text scroll-reveal">
+          <p class="eyebrow"><%= t('hours_eyebrow') %></p>
+          <h2><%= t('hours_title') %></h2>
+          <p><%= t('hours_body') %></p>
+          <a href="/marcar" class="btn btn-primary"><%= t('pricing_btn') %></a>
+        </div>
+        <div class="hours-card scroll-reveal" data-delay="1">
+          <div class="hours-row">
+            <span><%= t('day_mon') %></span>
+            <span class="hours-closed"><%= t('closed') %></span>
+          </div>
+          <div class="hours-row hours-open">
+            <span><%= t('day_tue') %></span>
+            <span><%= t('hours_time_range') %></span>
+          </div>
+          <div class="hours-row hours-open">
+            <span><%= t('day_wed') %></span>
+            <span><%= t('hours_time_range') %></span>
+          </div>
+          <div class="hours-row hours-open">
+            <span><%= t('day_thu') %></span>
+            <span><%= t('hours_time_range') %></span>
+          </div>
+          <div class="hours-row hours-open">
+            <span><%= t('day_fri') %></span>
+            <span><%= t('hours_time_range') %></span>
+          </div>
+          <div class="hours-row hours-open">
+            <span><%= t('day_sat') %></span>
+            <span><%= t('hours_time_range') %></span>
+          </div>
+          <div class="hours-row">
+            <span><%= t('day_sun') %></span>
+            <span class="hours-closed"><%= t('closed') %></span>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <section class="section services-preview">
       <div class="wrap">
         <div class="section-head scroll-reveal">
