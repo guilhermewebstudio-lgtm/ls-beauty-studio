@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/nav') %>
+
+  <main>
+    <section class="page-header">
+      <div class="wrap">
+        <p class="eyebrow">Serviços</p>
+        <h1>O menu completo</h1>
+        <p class="page-header-sub">Preços e durações — escolhe o que precisas e marca em segundos.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <% const porCategoria = {}; servicos.forEach(s => { (porCategoria[s.categoria] = porCategoria[s.categoria] || []).push(s); }); %>
+        <% Object.keys(porCategoria).forEach(function(cat) { %>
+          <div class="service-group">
+            <h2><%= cat %></h2>
+            <div class="service-list">
+              <% porCategoria[cat].forEach(function(s) { %>
+                <a class="service-row" href="/marcar?servico=<%= s.id %>">
+                  <div class="service-row-main">
+                    <h3><%= s.nome %></h3>
+                    <p><%= s.descricao %></p>
+                  </div>
+                  <div class="service-row-meta">
+                    <span class="service-duration"><%= s.duracao_min %> min</span>
+                    <span class="service-price"><%= s.preco %>€</span>
+                  </div>
+                </a>
+              <% }); %>
+            </div>
+          </div>
+        <% }); %>
+      </div>
+    </section>
+  </main>
+
+  <%- include('partials/footer') %>
+  <%- include('partials/chatbot') %>
+  <script src="/js/reveal.js"></script>
+  <script src="/js/chatbot.js"></script>
+</body>
+</html>

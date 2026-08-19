@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+<%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/nav') %>
+
+  <main>
+    <section class="page-header">
+      <div class="wrap">
+        <p class="eyebrow">Marcação</p>
+        <h1>Reserva a tua sessão</h1>
+        <p class="page-header-sub">Escolhe o serviço, o dia e a hora que preferires.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap form-wrap">
+        <% if (sucesso) { %>
+          <div class="alert alert-success">
+            <h3>Marcação recebida! 🎉</h3>
+            <p>Vamos confirmar por email ou telefone brevemente. Obrigada pela preferência.</p>
+          </div>
+        <% } %>
+        <% if (erro) { %>
+          <div class="alert alert-error"><p><%= erro %></p></div>
+        <% } %>
+
+        <form class="booking-form" method="POST" action="/marcar">
+          <div class="form-row">
+            <label>
+              Nome completo
+              <input type="text" name="nome_cliente" required>
+            </label>
+            <label>
+              Telefone
+              <input type="tel" name="telefone" required>
+            </label>
+          </div>
+          <label>
+            Email
+            <input type="email" name="email" required>
+          </label>
+          <label>
+            Serviço
+            <select name="servico_id" required>
+              <option value="" disabled selected>Escolhe um serviço</option>
+              <% servicos.forEach(function(s) { %>
+                <option value="<%= s.id %>"><%= s.nome %> — <%= s.preco %>€ (<%= s.duracao_min %> min)</option>
+              <% }); %>
+            </select>
+          </label>
+          <div class="form-row">
+            <label>
+              Data
+              <input type="date" name="data" required>
+            </label>
+            <label>
+              Hora
+              <input type="time" name="hora" required>
+            </label>
+          </div>
+          <label>
+            Notas (opcional)
+            <textarea name="notas" rows="3" placeholder="Alguma preferência ou pedido especial?"></textarea>
+          </label>
+          <button type="submit" class="btn btn-primary btn-block">Confirmar marcação</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <%- include('partials/footer') %>
+  <%- include('partials/chatbot') %>
+  <script src="/js/reveal.js"></script>
+  <script src="/js/chatbot.js"></script>
+</body>
+</html>
