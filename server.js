@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const bodyParser = require('body-parser');
+const db = require('./models/db');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
@@ -20,6 +21,13 @@ app.use((req, res) => {
   res.status(404).render('404');
 });
 
-app.listen(PORT, () => {
-  console.log(`LS Beauty Studio a correr em http://localhost:${PORT}`);
-});
+db.init()
+  .then(() => {
+    app.listen(PORT, () => {
+      console.log(`LS Beauty Studio a correr em http://localhost:${PORT}`);
+    });
+  })
+  .catch((err) => {
+    console.error('Falha ao ligar à base de dados:', err);
+    process.exit(1);
+  });

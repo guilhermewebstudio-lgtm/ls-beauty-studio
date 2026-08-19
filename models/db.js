@@ -1,73 +1,114 @@
 // models/db.js
-// Camada de acesso à base de dados.
-// Usa SQLite localmente. Quando migrarmos para o Neon (Postgres),
-// só é preciso trocar este ficheiro para usar "pg" — o resto do
-// código (routes/) fala com estas funções, não com SQL direto.
+// Liga ao Postgres do Neon usando a DATABASE_URL do .env.
+// A interface exportada (init, getServicos, getServicoPorId, criarMarcacao,
+// existeConflito, criarMensagemContacto) é o que as rotas usam.
 
-const Database = require('better-sqlite3');
-const path = require('path');
-const fs = require('fs');
+const { Pool } = require('pg');
 
-const dataDir = path.join(__dirname, '..', 'data');
-if (!fs.existsSync(dataDir)) fs.mkdirSync(dataDir, { recursive: true });
+const pool = new Pool({
+  connectionString: process.env.DATABASE_URL,
+  ssl: { rejectUnauthorized: false }
+});
 
-const db = new Database(path.join(dataDir, 'ls-beauty.db'));
-
-db.pragma('journal_mode = WAL');
-
-db.exec(`
-CREATE TABLE IF NOT EXISTS servicos (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  nome TEXT NOT NULL,
-  categoria TEXT NOT NULL,
-  duracao_min INTEGER NOT NULL,
-  preco REAL NOT NULL,
-  descricao TEXT
-);
-
-CREATE TABLE IF NOT EXISTS marcacoes (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  nome_cliente TEXT NOT NULL,
-  email TEXT NOT NULL,
-  telefone TEXT NOT NULL,
-  servico_id INTEGER NOT NULL,
-  data TEXT NOT NULL,
-  hora TEXT NOT NULL,
-  notas TEXT,
-  estado TEXT DEFAULT 'pendente',
-  criado_em TEXT DEFAULT CURRENT_TIMESTAMP,
-  FOREIGN KEY (servico_id) REFERENCES servicos(id)
-);
-
-CREATE TABLE IF NOT EXISTS mensagens_contacto (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  nome TEXT NOT NULL,
-  email TEXT NOT NULL,
-  mensagem TEXT NOT NULL,
-  criado_em TEXT DEFAULT CURRENT_TIMESTAMP
-);
-`);
-
-// Seed de serviços iniciais (só corre se a tabela estiver vazia)
-const count = db.prepare('SELECT COUNT(*) AS n FROM servicos').get().n;
-if (count === 0) {
-  const insert = db.prepare(`
-    INSERT INTO servicos (nome, categoria, duracao_min, preco, descricao)
-    VALUES (@nome, @categoria, @duracao_min, @preco, @descricao)
+async function init() {
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS servicos (
+      id SERIAL PRIMARY KEY,
+      nome TEXT NOT NULL,
+      categoria TEXT NOT NULL,
+      duracao_min INTEGER NOT NULL,
+      preco NUMERIC(10,2) NOT NULL,
+      descricao TEXT
+    );
   `);
-  const seed = [
-    { nome: 'Manicure Clássica', categoria: 'Unhas', duracao_min: 45, preco: 15, descricao: 'Tratamento completo de unhas com verniz à escolha.' },
-    { nome: 'Verniz Gel', categoria: 'Unhas', duracao_min: 60, preco: 22, descricao: 'Aplicação de verniz gel com longa duração.' },
-    { nome: 'Pedicure Spa', categoria: 'Unhas', duracao_min: 60, preco: 25, descricao: 'Esfoliação, hidratação e verniz.' },
-    { nome: 'Extensão de Pestanas', categoria: 'Olhar', duracao_min: 90, preco: 45, descricao: 'Efeito volume fio a fio.' },
-    { nome: 'Design de Sobrancelhas', categoria: 'Olhar', duracao_min: 30, preco: 12, descricao: 'Depilação e definição personalizada.' },
-    { nome: 'Corte + Escova', categoria: 'Cabelo', duracao_min: 60, preco: 25, descricao: 'Corte adaptado ao rosto e escova modeladora.' },
-    { nome: 'Coloração Completa', categoria: 'Cabelo', duracao_min: 120, preco: 55, descricao: 'Cor uniforme de raiz a pontas.' },
-    { nome: 'Limpeza de Pele', categoria: 'Estética Facial', duracao_min: 60, preco: 35, descricao: 'Limpeza profunda com extração e máscara calmante.' },
-    { nome: 'Massagem Relaxante', categoria: 'Corpo', duracao_min: 50, preco: 40, descricao: 'Massagem de corpo inteiro para alívio de tensões.' }
-  ];
-  const insertMany = db.transaction((rows) => rows.forEach((r) => insert.run(r)));
-  insertMany(seed);
+
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS marcacoes (
+      id SERIAL PRIMARY KEY,
+      nome_cliente TEXT NOT NULL,
+      email TEXT NOT NULL,
+      telefone TEXT NOT NULL,
+      servico_id INTEGER NOT NULL REFERENCES servicos(id),
+      data DATE NOT NULL,
+      hora TIME NOT NULL,
+      notas TEXT,
+      estado TEXT DEFAULT 'pendente',
+      criado_em TIMESTAMP DEFAULT NOW()
+    );
+  `);
+
+  await pool.query(`
+    CREATE TABLE IF NOT EXISTS mensagens_contacto (
+      id SERIAL PRIMARY KEY,
+      nome TEXT NOT NULL,
+      email TEXT NOT NULL,
+      mensagem TEXT NOT NULL,
+      criado_em TIMESTAMP DEFAULT NOW()
+    );
+  `);
+
+  const { rows } = await pool.query('SELECT COUNT(*)::int AS n FROM servicos');
+  if (rows[0].n === 0) {
+    const seed = [
+      ['Manicure Clássica', 'Unhas', 45, 15, 'Tratamento completo de unhas com verniz à escolha.'],
+      ['Verniz Gel', 'Unhas', 60, 22, 'Aplicação de verniz gel com longa duração.'],
+      ['Pedicure Spa', 'Unhas', 60, 25, 'Esfoliação, hidratação e verniz.'],
+      ['Extensão de Pestanas', 'Olhar', 90, 45, 'Efeito volume fio a fio.'],
+      ['Design de Sobrancelhas', 'Olhar', 30, 12, 'Depilação e definição personalizada.'],
+      ['Corte + Escova', 'Cabelo', 60, 25, 'Corte adaptado ao rosto e escova modeladora.'],
+      ['Coloração Completa', 'Cabelo', 120, 55, 'Cor uniforme de raiz a pontas.'],
+      ['Limpeza de Pele', 'Estética Facial', 60, 35, 'Limpeza profunda com extração e máscara calmante.'],
+      ['Massagem Relaxante', 'Corpo', 50, 40, 'Massagem de corpo inteiro para alívio de tensões.']
+    ];
+    for (const s of seed) {
+      await pool.query(
+        `INSERT INTO servicos (nome, categoria, duracao_min, preco, descricao) VALUES ($1,$2,$3,$4,$5)`,
+        s
+      );
+    }
+  }
 }
 
-module.exports = db;
+async function getServicos() {
+  const { rows } = await pool.query('SELECT * FROM servicos ORDER BY categoria, preco');
+  return rows.map((r) => ({ ...r, preco: Number(r.preco) }));
+}
+
+async function getServicoPorId(id) {
+  const { rows } = await pool.query('SELECT * FROM servicos WHERE id = $1', [id]);
+  if (!rows[0]) return null;
+  return { ...rows[0], preco: Number(rows[0].preco) };
+}
+
+async function existeConflito(data, hora) {
+  const { rows } = await pool.query(
+    'SELECT id FROM marcacoes WHERE data = $1 AND hora = $2',
+    [data, hora]
+  );
+  return rows.length > 0;
+}
+
+async function criarMarcacao({ nome_cliente, email, telefone, servico_id, data, hora, notas }) {
+  await pool.query(
+    `INSERT INTO marcacoes (nome_cliente, email, telefone, servico_id, data, hora, notas)
+     VALUES ($1,$2,$3,$4,$5,$6,$7)`,
+    [nome_cliente, email, telefone, servico_id, data, hora, notas || null]
+  );
+}
+
+async function criarMensagemContacto({ nome, email, mensagem }) {
+  await pool.query(
+    'INSERT INTO mensagens_contacto (nome, email, mensagem) VALUES ($1,$2,$3)',
+    [nome, email, mensagem]
+  );
+}
+
+module.exports = {
+  pool,
+  init,
+  getServicos,
+  getServicoPorId,
+  existeConflito,
+  criarMarcacao,
+  criarMensagemContacto
+};

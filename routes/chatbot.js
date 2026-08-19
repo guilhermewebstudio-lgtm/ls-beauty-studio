@@ -11,8 +11,8 @@ const INFO = {
   cancelamento: 'Podes cancelar ou remarcar até 24h antes através do contacto que usaste na marcação, sem qualquer custo.'
 };
 
-function getServicosResumo() {
-  const servicos = db.prepare('SELECT nome, categoria, preco, duracao_min FROM servicos ORDER BY categoria, preco').all();
+async function getServicosResumo() {
+  const servicos = await db.getServicos();
   const porCategoria = {};
   servicos.forEach((s) => {
     if (!porCategoria[s.categoria]) porCategoria[s.categoria] = [];
@@ -21,7 +21,7 @@ function getServicosResumo() {
   return porCategoria;
 }
 
-function responder(mensagemOriginal) {
+async function responder(mensagemOriginal) {
   const msg = mensagemOriginal.toLowerCase();
 
   // Saudação
@@ -41,7 +41,7 @@ function responder(mensagemOriginal) {
 
   // Preços / serviços
   if (/\b(preco|preço)s?\b|\bquanto custa/.test(msg) || /\bvalor(es)?\b/.test(msg)) {
-    const porCategoria = getServicosResumo();
+    const porCategoria = await getServicosResumo();
     let resposta = 'Aqui tens os nossos preços:\n';
     Object.keys(porCategoria).forEach((cat) => {
       resposta += `\n${cat}:\n`;
@@ -55,7 +55,7 @@ function responder(mensagemOriginal) {
 
   // Serviços disponíveis
   if (/\b(servico|serviço|servicos|serviços|fazem|fazes)\b/.test(msg)) {
-    const porCategoria = getServicosResumo();
+    const porCategoria = await getServicosResumo();
     const categorias = Object.keys(porCategoria).join(', ');
     return `Trabalhamos nas áreas de: ${categorias}. Queres que te mostre os preços de alguma delas?`;
   }
@@ -89,13 +89,17 @@ function responder(mensagemOriginal) {
   return 'Não tenho a certeza se percebi bem 🙂 Posso ajudar com: horários, preços, serviços, marcações, cancelamentos ou pagamentos. O que gostavas de saber?';
 }
 
-router.post('/chatbot', (req, res) => {
+router.post('/chatbot', async (req, res) => {
   const { mensagem } = req.body;
   if (!mensagem || typeof mensagem !== 'string') {
     return res.status(400).json({ erro: 'Mensagem inválida.' });
   }
-  const resposta = responder(mensagem.trim());
-  res.json({ resposta });
+  try {
+    const resposta = await responder(mensagem.trim());
+    res.json({ resposta });
+  } catch (err) {
+    res.status(500).json({ erro: 'Erro interno.' });
+  }
 });
 
 module.exports = router;
