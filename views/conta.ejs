@@ -46,6 +46,35 @@
         </div>
       </div>
     </section>
+
+    <% if (mensagens && mensagens.length > 0) { %>
+      <section class="section">
+        <div class="wrap">
+          <div class="section-head scroll-reveal">
+            <p class="eyebrow"><%= t('account_messages_eyebrow') %></p>
+            <h2><%= t('account_messages_title') %></h2>
+          </div>
+          <div class="suggestions-list scroll-reveal">
+            <% mensagens.forEach(function(msg) { %>
+              <div class="suggestion-card">
+                <div class="suggestion-head">
+                  <h3><%= msg.mensagem.length > 60 ? msg.mensagem.slice(0, 60) + '…' : msg.mensagem %></h3>
+                  <span class="suggestion-badge status-<%= msg.estado === 'respondida' ? 'aceite' : 'pendente' %>">
+                    <%= msg.estado === 'respondida' ? t('message_status_respondida') : t('message_status_pendente') %>
+                  </span>
+                </div>
+                <div class="admin-chat" style="padding:0;">
+                  <div class="chat-bubble chat-bubble-client"><p><%= msg.mensagem %></p></div>
+                  <% if (msg.resposta_admin) { %>
+                    <div class="chat-bubble chat-bubble-admin"><p><%= msg.resposta_admin %></p></div>
+                  <% } %>
+                </div>
+              </div>
+            <% }); %>
+          </div>
+        </div>
+      </section>
+    <% } %>
   </main>
 
   <%- include('partials/footer') %>

@@ -153,6 +153,10 @@ const dict = {
     account_bookings_eyebrow: 'Histórico',
     account_bookings_title: 'As tuas marcações',
     account_no_bookings: 'Ainda não tens marcações.',
+    account_messages_eyebrow: 'Contacto',
+    account_messages_title: 'As tuas mensagens',
+    message_status_pendente: 'Pendente',
+    message_status_respondida: 'Respondida',
 
     nav_suggestions: 'Sugestões',
     page_suggestions_eyebrow: 'Sugestões',
@@ -327,6 +331,10 @@ const dict = {
     account_bookings_eyebrow: 'History',
     account_bookings_title: 'Your bookings',
     account_no_bookings: 'You don\'t have any bookings yet.',
+    account_messages_eyebrow: 'Contact',
+    account_messages_title: 'Your messages',
+    message_status_pendente: 'Pending',
+    message_status_respondida: 'Replied',
 
     nav_suggestions: 'Suggestions',
     page_suggestions_eyebrow: 'Suggestions',

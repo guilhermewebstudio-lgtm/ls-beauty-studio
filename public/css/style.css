@@ -306,6 +306,43 @@ body.revealed .reveal-item { opacity: 1; transform: translateY(0); }
 .admin-message-card p { margin: 0; color: #4b423d; font-size: 0.9rem; }
 
 /* ============================================
+   Chat de mensagens do admin
+   ============================================ */
+.admin-message-thread {
+  background: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 12px 30px rgba(29,24,21,0.06);
+  overflow: hidden;
+}
+.admin-message-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 18px 22px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 0.9rem;
+}
+.admin-message-summary::-webkit-details-marker { display: none; }
+.admin-message-summary strong { margin-right: 10px; }
+.admin-message-thread[open] .admin-message-summary { border-bottom: 1px solid rgba(29,24,21,0.06); }
+.admin-chat { padding: 20px 22px; display: flex; flex-direction: column; gap: 12px; }
+.chat-bubble { max-width: 80%; padding: 12px 16px; border-radius: 12px; font-size: 0.88rem; line-height: 1.5; }
+.chat-bubble p { margin: 0; }
+.chat-bubble-client { background: var(--blush-soft); align-self: flex-start; border-bottom-left-radius: 2px; }
+.chat-bubble-admin { background: var(--wine); color: var(--white); align-self: flex-end; border-bottom-right-radius: 2px; }
+.admin-chat-reply { display: flex; gap: 10px; margin-top: 8px; }
+.admin-chat-reply textarea {
+  flex: 1;
+  font-family: var(--font-body);
+  font-size: 0.87rem;
+  padding: 10px 12px;
+  border: 1px solid rgba(29,24,21,0.18);
+  border-radius: 6px;
+  resize: vertical;
+}
+
+/* ============================================
    Sugestões
    ============================================ */
 .suggestions-list { display: flex; flex-direction: column; gap: 16px; }

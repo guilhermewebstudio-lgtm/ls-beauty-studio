@@ -75,6 +75,17 @@ router.post('/admin/marcacoes/:id/apagar', requireAdmin, async (req, res, next) 
   } catch (err) { next(err); }
 });
 
+router.post('/admin/mensagens/:id', requireAdmin, async (req, res, next) => {
+  try {
+    const { resposta_admin } = req.body;
+    if (!resposta_admin || !resposta_admin.trim()) {
+      return res.status(400).send('A resposta não pode estar vazia.');
+    }
+    await db.responderMensagem(req.params.id, resposta_admin.trim());
+    res.redirect('/admin');
+  } catch (err) { next(err); }
+});
+
 router.get('/admin/sugestoes', requireAdmin, async (req, res, next) => {
   try {
     const sugestoes = await db.getTodasSugestoes();

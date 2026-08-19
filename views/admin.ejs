@@ -102,13 +102,31 @@
         <% } else { %>
           <div class="admin-messages scroll-reveal">
             <% mensagens.forEach(function(msg) { %>
-              <div class="admin-message-card">
-                <div class="admin-message-head">
-                  <strong><%= msg.nome %></strong>
-                  <span class="admin-muted"><%= msg.email %></span>
+              <details class="admin-message-thread">
+                <summary class="admin-message-summary">
+                  <div>
+                    <strong><%= msg.nome %></strong>
+                    <span class="admin-muted"><%= msg.email %></span>
+                  </div>
+                  <span class="suggestion-badge status-<%= msg.estado === 'respondida' ? 'aceite' : 'pendente' %>">
+                    <%= msg.estado === 'respondida' ? 'Respondida' : 'Pendente' %>
+                  </span>
+                </summary>
+                <div class="admin-chat">
+                  <div class="chat-bubble chat-bubble-client">
+                    <p><%= msg.mensagem %></p>
+                  </div>
+                  <% if (msg.resposta_admin) { %>
+                    <div class="chat-bubble chat-bubble-admin">
+                      <p><%= msg.resposta_admin %></p>
+                    </div>
+                  <% } %>
+                  <form method="POST" action="/admin/mensagens/<%= msg.id %>" class="admin-chat-reply">
+                    <textarea name="resposta_admin" rows="2" placeholder="Escreve a tua resposta…"><%= msg.resposta_admin || '' %></textarea>
+                    <button type="submit" class="btn btn-primary">Responder</button>
+                  </form>
                 </div>
-                <p><%= msg.mensagem %></p>
-              </div>
+              </details>
             <% }); %>
           </div>
         <% } %>

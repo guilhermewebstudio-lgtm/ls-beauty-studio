@@ -55,6 +55,9 @@ async function init() {
       criado_em TIMESTAMP DEFAULT NOW()
     );
   `);
+  await pool.query(`ALTER TABLE mensagens_contacto ADD COLUMN IF NOT EXISTS resposta_admin TEXT;`);
+  await pool.query(`ALTER TABLE mensagens_contacto ADD COLUMN IF NOT EXISTS respondido_em TIMESTAMP;`);
+  await pool.query(`ALTER TABLE mensagens_contacto ADD COLUMN IF NOT EXISTS estado TEXT DEFAULT 'pendente';`);
 
   await pool.query(`
     CREATE TABLE IF NOT EXISTS usuarios (
@@ -194,7 +197,24 @@ async function getTodasMarcacoes() {
 
 async function getTodasMensagens() {
   const { rows } = await pool.query(
-    'SELECT * FROM mensagens_contacto ORDER BY criado_em DESC LIMIT 200'
+    "SELECT * FROM mensagens_contacto ORDER BY (estado = 'pendente') DESC, criado_em DESC LIMIT 200"
+  );
+  return rows;
+}
+
+async function responderMensagem(id, resposta_admin) {
+  const { rows } = await pool.query(
+    `UPDATE mensagens_contacto SET resposta_admin = $1, estado = 'respondida', respondido_em = NOW()
+     WHERE id = $2 RETURNING *`,
+    [resposta_admin, id]
+  );
+  return rows[0] || null;
+}
+
+async function getMensagensPorEmail(email) {
+  const { rows } = await pool.query(
+    'SELECT * FROM mensagens_contacto WHERE email = $1 ORDER BY criado_em DESC',
+    [email.toLowerCase()]
   );
   return rows;
 }
@@ -269,5 +289,7 @@ module.exports = {
   getTodasSugestoes,
   responderSugestao,
   atualizarEstadoMarcacao,
-  apagarMarcacao
+  apagarMarcacao,
+  responderMensagem,
+  getMensagensPorEmail
 };

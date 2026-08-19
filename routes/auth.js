@@ -90,8 +90,11 @@ router.get('/conta', async (req, res, next) => {
       req.session.postLoginRedirect = '/conta';
       return res.redirect('/login');
     }
-    const marcacoes = await db.getMarcacoesPorEmail(req.session.user.email);
-    res.render('conta', { marcacoes });
+    const [marcacoes, mensagens] = await Promise.all([
+      db.getMarcacoesPorEmail(req.session.user.email),
+      db.getMensagensPorEmail(req.session.user.email)
+    ]);
+    res.render('conta', { marcacoes, mensagens });
   } catch (err) { next(err); }
 });
 
