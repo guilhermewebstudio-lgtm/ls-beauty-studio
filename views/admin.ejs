@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="<%= lang %>">
+<head>
+<%- include('partials/head') %>
+</head>
+<body>
+  <%- include('partials/nav') %>
+
+  <main>
+    <section class="page-header">
+      <div class="wrap scroll-reveal">
+        <p class="eyebrow">Admin</p>
+        <h1>Painel de gestão</h1>
+        <p class="page-header-sub">Marcações, mensagens e atividade do site.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="wrap">
+        <div class="admin-stats scroll-reveal">
+          <div class="admin-stat">
+            <span class="admin-stat-num"><%= resumo.totalMarcacoes %></span>
+            <span class="admin-stat-label">Marcações totais</span>
+          </div>
+          <div class="admin-stat">
+            <span class="admin-stat-num"><%= resumo.totalMensagens %></span>
+            <span class="admin-stat-label">Mensagens de contacto</span>
+          </div>
+          <div class="admin-stat">
+            <span class="admin-stat-num"><%= resumo.totalUsuarios %></span>
+            <span class="admin-stat-label">Contas registadas</span>
+          </div>
+        </div>
+
+        <div class="section-head scroll-reveal" style="margin-top:60px;">
+          <p class="eyebrow">Marcações</p>
+          <h2>Últimas marcações</h2>
+        </div>
+        <% if (marcacoes.length === 0) { %>
+          <p class="account-empty">Ainda não há marcações.</p>
+        <% } else { %>
+          <div class="admin-table-wrap scroll-reveal">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Cliente</th>
+                  <th>Contacto</th>
+                  <th>Serviço</th>
+                  <th>Data</th>
+                  <th>Hora</th>
+                  <th>Preço</th>
+                  <th>Estado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% marcacoes.forEach(function(m) { %>
+                  <tr>
+                    <td><%= m.nome_cliente %></td>
+                    <td><%= m.email %><br><span class="admin-muted"><%= m.telefone %></span></td>
+                    <td><%= m.servico_nome %></td>
+                    <td><%= m.data %></td>
+                    <td><%= m.hora %></td>
+                    <td><%= m.preco %>€</td>
+                    <td><span class="admin-badge"><%= m.estado %></span></td>
+                  </tr>
+                <% }); %>
+              </tbody>
+            </table>
+          </div>
+        <% } %>
+
+        <div class="section-head scroll-reveal" style="margin-top:60px;">
+          <p class="eyebrow">Contactos</p>
+          <h2>Mensagens recebidas</h2>
+        </div>
+        <% if (mensagens.length === 0) { %>
+          <p class="account-empty">Ainda não há mensagens.</p>
+        <% } else { %>
+          <div class="admin-messages scroll-reveal">
+            <% mensagens.forEach(function(msg) { %>
+              <div class="admin-message-card">
+                <div class="admin-message-head">
+                  <strong><%= msg.nome %></strong>
+                  <span class="admin-muted"><%= msg.email %></span>
+                </div>
+                <p><%= msg.mensagem %></p>
+              </div>
+            <% }); %>
+          </div>
+        <% } %>
+      </div>
+    </section>
+  </main>
+
+  <%- include('partials/footer') %>
+  <script src="/js/reveal.js"></script>
+  <script src="/js/animate.js"></script>
+</body>
+</html>

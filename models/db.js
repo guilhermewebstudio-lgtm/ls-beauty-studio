@@ -65,6 +65,7 @@ async function init() {
       criado_em TIMESTAMP DEFAULT NOW()
     );
   `);
+  await pool.query(`ALTER TABLE usuarios ADD COLUMN IF NOT EXISTS is_admin BOOLEAN DEFAULT FALSE;`);
 
   const { rows } = await pool.query('SELECT COUNT(*)::int AS n FROM servicos');
   if (rows[0].n === 0) {
@@ -147,6 +148,45 @@ async function getMarcacoesPorEmail(email) {
   return rows.map((r) => ({ ...r, preco: Number(r.preco) }));
 }
 
+async function promoverAdmin(email) {
+  const { rows } = await pool.query(
+    'UPDATE usuarios SET is_admin = TRUE WHERE email = $1 RETURNING id, nome, email, is_admin',
+    [email.toLowerCase()]
+  );
+  return rows[0] || null;
+}
+
+async function getTodasMarcacoes() {
+  const { rows } = await pool.query(
+    `SELECT m.*, s.nome AS servico_nome, s.preco
+     FROM marcacoes m
+     JOIN servicos s ON s.id = m.servico_id
+     ORDER BY m.data DESC, m.hora DESC
+     LIMIT 200`
+  );
+  return rows.map((r) => ({ ...r, preco: Number(r.preco) }));
+}
+
+async function getTodasMensagens() {
+  const { rows } = await pool.query(
+    'SELECT * FROM mensagens_contacto ORDER BY criado_em DESC LIMIT 200'
+  );
+  return rows;
+}
+
+async function getResumoAdmin() {
+  const [marcacoes, mensagens, usuarios] = await Promise.all([
+    pool.query('SELECT COUNT(*)::int AS n FROM marcacoes'),
+    pool.query('SELECT COUNT(*)::int AS n FROM mensagens_contacto'),
+    pool.query('SELECT COUNT(*)::int AS n FROM usuarios')
+  ]);
+  return {
+    totalMarcacoes: marcacoes.rows[0].n,
+    totalMensagens: mensagens.rows[0].n,
+    totalUsuarios: usuarios.rows[0].n
+  };
+}
+
 module.exports = {
   pool,
   init,
@@ -157,5 +197,9 @@ module.exports = {
   criarMensagemContacto,
   getUsuarioPorEmail,
   criarUsuario,
-  getMarcacoesPorEmail
+  getMarcacoesPorEmail,
+  promoverAdmin,
+  getTodasMarcacoes,
+  getTodasMensagens,
+  getResumoAdmin
 };

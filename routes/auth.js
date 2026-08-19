@@ -39,7 +39,7 @@ router.post('/registo', async (req, res, next) => {
     const hash = await bcrypt.hash(password, 10);
     const user = await db.criarUsuario({ nome, email, password_hash: hash });
 
-    req.session.user = { id: user.id, nome: user.nome, email: user.email };
+    req.session.user = { id: user.id, nome: user.nome, email: user.email, isAdmin: false };
     res.redirect('/conta');
   } catch (err) { next(err); }
 });
@@ -69,7 +69,7 @@ router.post('/login', async (req, res, next) => {
       return res.render('login', { erro: t('auth_error_credentials'), valores: { email } });
     }
 
-    req.session.user = { id: user.id, nome: user.nome, email: user.email };
+    req.session.user = { id: user.id, nome: user.nome, email: user.email, isAdmin: !!user.is_admin };
     const redirectTo = req.session.postLoginRedirect || '/conta';
     delete req.session.postLoginRedirect;
     res.redirect(redirectTo);
