@@ -19,7 +19,7 @@
       <div class="wrap">
         <% const porCategoria = {}; servicos.forEach(s => { (porCategoria[s.categoria] = porCategoria[s.categoria] || []).push(s); }); %>
         <% Object.keys(porCategoria).forEach(function(cat) { %>
-          <div class="service-group">
+          <div class="service-group scroll-reveal">
             <h2><%= cat %></h2>
             <div class="service-list">
               <% porCategoria[cat].forEach(function(s) { %>
@@ -44,6 +44,7 @@
   <%- include('partials/footer') %>
   <%- include('partials/chatbot') %>
   <script src="/js/reveal.js"></script>
+  <script src="/js/animate.js"></script>
   <script src="/js/chatbot.js"></script>
 </body>
 </html>

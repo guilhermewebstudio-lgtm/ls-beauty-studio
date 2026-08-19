@@ -36,14 +36,14 @@
 
     <section class="section intro-section">
       <div class="wrap intro-grid">
-        <div class="intro-text">
+        <div class="intro-text scroll-reveal">
           <p class="eyebrow">O estúdio</p>
           <h2>Um cuidado atento, em cada detalhe.</h2>
           <p>No LS Beauty Studio, cada marcação é um momento só teu. Trabalhamos com produtos de qualidade e técnicas atuais, num ambiente calmo em pleno coração de Benfica.</p>
         </div>
-        <div class="intro-stats">
+        <div class="intro-stats scroll-reveal" data-delay="1">
           <div class="stat">
-            <span class="stat-num">9</span>
+            <span class="stat-num" data-count="9">0</span>
             <span class="stat-label">Serviços especializados</span>
           </div>
           <div class="stat">
@@ -56,7 +56,7 @@
 
     <section class="section services-preview">
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-head scroll-reveal">
           <p class="eyebrow">Serviços</p>
           <h2>O que fazemos por ti</h2>
         </div>
@@ -64,7 +64,7 @@
           <% const categorias = [...new Set(servicos.map(s => s.categoria))].slice(0, 4); %>
           <% categorias.forEach(function(cat, i) { %>
             <% const s = servicos.find(x => x.categoria === cat); %>
-            <div class="service-card">
+            <div class="service-card scroll-reveal" data-delay="<%= i %>">
               <span class="service-index"><%= String(i + 1).padStart(2, '0') %></span>
               <h3><%= cat %></h3>
               <p><%= s.descricao %></p>
@@ -80,46 +80,47 @@
 
     <section class="section gallery-section">
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-head scroll-reveal">
           <p class="eyebrow">Galeria</p>
           <h2>Trabalhos que falam por si</h2>
         </div>
       </div>
       <div class="gallery-grid">
-        <figure class="gallery-item span-2">
+        <figure class="gallery-item span-2 scroll-reveal">
           <img src="https://images.unsplash.com/photo-1604654894610-df63bc536371?auto=format&fit=crop&w=1200&q=80" alt="Manicure em tons escuros com padrão de tartaruga">
         </figure>
-        <figure class="gallery-item">
+        <figure class="gallery-item scroll-reveal" data-delay="1">
           <img src="https://images.unsplash.com/photo-1610992015762-45dca7fa3a85?auto=format&fit=crop&w=800&q=80" alt="Manicure em rosa claro sobre superfície branca">
         </figure>
-        <figure class="gallery-item">
+        <figure class="gallery-item scroll-reveal" data-delay="2">
           <img src="https://images.unsplash.com/photo-1736434518489-0eb84070017f?auto=format&fit=crop&w=800&q=80" alt="Manicure segurando uma flor">
         </figure>
-        <figure class="gallery-item">
+        <figure class="gallery-item scroll-reveal" data-delay="3">
           <img src="https://images.unsplash.com/photo-1607779097040-26e80aa78e66?auto=format&fit=crop&w=800&q=80" alt="Unhas com glitter prateado e malha branca">
         </figure>
-        <figure class="gallery-item span-2">
+        <figure class="gallery-item span-2 scroll-reveal">
           <img src="https://images.unsplash.com/photo-1619607146034-5a05296c8f9a?auto=format&fit=crop&w=1200&q=80" alt="Prateleiras douradas com vernizes coloridos">
         </figure>
-        <figure class="gallery-item">
+        <figure class="gallery-item scroll-reveal" data-delay="1">
           <img src="https://images.unsplash.com/photo-1519014816548-bf5fe059798b?auto=format&fit=crop&w=800&q=80" alt="Foco seletivo em manicure rosa">
         </figure>
-        <figure class="gallery-item">
+        <figure class="gallery-item scroll-reveal" data-delay="2">
           <img src="https://images.unsplash.com/photo-1571290274554-6a2eaa771e5f?auto=format&fit=crop&w=800&q=80" alt="Unhas cuidadas com manicure elegante">
         </figure>
       </div>
     </section>
 
     <section class="section pricing-section">
+      <div class="pricing-glow"></div>
       <div class="wrap">
-        <div class="section-head">
+        <div class="section-head scroll-reveal">
           <p class="eyebrow">Preços</p>
           <h2>Investe em ti, sem surpresas</h2>
         </div>
         <div class="pricing-columns">
           <% const porCategoriaHome = {}; servicos.forEach(s => { (porCategoriaHome[s.categoria] = porCategoriaHome[s.categoria] || []).push(s); }); %>
-          <% Object.keys(porCategoriaHome).forEach(function(cat) { %>
-            <div class="pricing-col">
+          <% Object.keys(porCategoriaHome).forEach(function(cat, i) { %>
+            <div class="pricing-col scroll-reveal" data-delay="<%= i %>">
               <h3><%= cat %></h3>
               <ul class="pricing-list">
                 <% porCategoriaHome[cat].forEach(function(s) { %>
@@ -133,14 +134,14 @@
             </div>
           <% }); %>
         </div>
-        <div class="center-cta">
+        <div class="center-cta scroll-reveal">
           <a href="/marcar" class="btn btn-primary">Marcar sessão</a>
         </div>
       </div>
     </section>
 
     <section class="section cta-band">
-      <div class="wrap cta-band-inner">
+      <div class="wrap cta-band-inner scroll-reveal">
         <h2>Pronta para o teu momento de cuidado?</h2>
         <a href="/marcar" class="btn btn-primary-inverse">Marcar agora</a>
       </div>
@@ -151,6 +152,7 @@
   <%- include('partials/chatbot') %>
 
   <script src="/js/reveal.js"></script>
+  <script src="/js/animate.js"></script>
   <script src="/js/chatbot.js"></script>
 </body>
 </html>
