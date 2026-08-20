@@ -87,33 +87,33 @@
           <p><%= t('hours_body') %></p>
           <a href="/marcar" class="btn btn-primary"><%= t('pricing_btn') %></a>
         </div>
-        <div class="hours-card scroll-reveal" data-delay="1">
-          <div class="hours-row">
-            <span><%= t('day_mon') %></span>
+        <div class="hours-card scroll-reveal" data-delay="1" id="hoursCard">
+          <div class="hours-row" data-day="1">
+            <span class="hours-day-label"><%= t('day_mon') %></span>
             <span class="hours-closed"><%= t('closed') %></span>
           </div>
-          <div class="hours-row hours-open">
-            <span><%= t('day_tue') %></span>
+          <div class="hours-row hours-open" data-day="2">
+            <span class="hours-day-label"><%= t('day_tue') %></span>
             <span><%= t('hours_time_range') %></span>
           </div>
-          <div class="hours-row hours-open">
-            <span><%= t('day_wed') %></span>
+          <div class="hours-row hours-open" data-day="3">
+            <span class="hours-day-label"><%= t('day_wed') %></span>
             <span><%= t('hours_time_range') %></span>
           </div>
-          <div class="hours-row hours-open">
-            <span><%= t('day_thu') %></span>
+          <div class="hours-row hours-open" data-day="4">
+            <span class="hours-day-label"><%= t('day_thu') %></span>
             <span><%= t('hours_time_range') %></span>
           </div>
-          <div class="hours-row hours-open">
-            <span><%= t('day_fri') %></span>
+          <div class="hours-row hours-open" data-day="5">
+            <span class="hours-day-label"><%= t('day_fri') %></span>
             <span><%= t('hours_time_range') %></span>
           </div>
-          <div class="hours-row hours-open">
-            <span><%= t('day_sat') %></span>
+          <div class="hours-row hours-open" data-day="6">
+            <span class="hours-day-label"><%= t('day_sat') %></span>
             <span><%= t('hours_time_range') %></span>
           </div>
-          <div class="hours-row">
-            <span><%= t('day_sun') %></span>
+          <div class="hours-row" data-day="0">
+            <span class="hours-day-label"><%= t('day_sun') %></span>
             <span class="hours-closed"><%= t('closed') %></span>
           </div>
         </div>
@@ -284,6 +284,7 @@
 
   <script src="/js/reveal.js"></script>
   <script src="/js/animate.js"></script>
+  <script src="/js/today.js"></script>
   <script src="/js/chatbot.js"></script>
 </body>
 </html>
